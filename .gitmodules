@@ -1,0 +1,3 @@
+[submodule "src/macroslib"]
+	path = src/macroslib
+	url = https://github.com/sigdev2/macroslib.git
