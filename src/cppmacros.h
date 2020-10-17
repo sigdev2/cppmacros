@@ -4,27 +4,19 @@
 
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_H__
-#define __HAS_MACROS_LIB_H__
+#ifndef __HAS_CPPMACROS_LIB_H__
+#define __HAS_CPPMACROS_LIB_H__
 
-/*! \file macroslib.h
-    \brief Main file for MacrosLib include.
+/*! \file cppmacros.h
+    \brief Main file for CppMacros include.
     
-    The file contains includes of all library files and macros for managing them. If is included, then macros __HAS_MACROS_LIB_H__ is defined
+    The file contains includes of all library files and macros for managing them. If is included, then macros __HAS_CPPMACROS_LIB_H__ is defined
 */
 
+#include "macroslib/src/macroslib.h"
 #include "config.h"
+#include "lang.h"
 
-#ifdef __DOXYGEN__
-/*! 
-   \brief Macros for disable include preprocessor utils section. But if other files depend for them, then ignored
-*/
-#define STRDEF_NO_PREPROCESSOR
-#endif // __DOXYGEN__
-#ifndef STRDEF_NO_PREPROCESSOR
-#include "preprocessor/utils.h"
-#include "preprocessor/variadic.h"
-#endif // STRDEF_NO_PREPROCESSOR
 
 #ifdef __DOXYGEN__
 /*! 
@@ -65,4 +57,4 @@
 #endif // STRDEF_NO_COMMON
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_H__
+#endif // __HAS_CPPMACROS_LIB_H__

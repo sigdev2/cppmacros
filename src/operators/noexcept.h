@@ -3,19 +3,17 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_NOEXCEPT_H__
-#define __HAS_MACROS_LIB_NOEXCEPT_H__
+#ifndef __HAS_CPPMACROS_NOEXCEPT_H__
+#define __HAS_CPPMACROS_NOEXCEPT_H__
 
 /*! \file noexcept.h
     \brief Noexcept stub if not supported
 
     Depend from:
      - /common/versions.h
-     - /preprocessor/variadic.h
 */
 
 #include "../common/versions.h"
-#include "../preprocessor/variadic.h"
 
 #ifdef CXX11
 /*!
@@ -29,4 +27,4 @@
 #endif // CXX11
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_NOEXCEPT_H__
+#endif // __HAS_CPPMACROS_NOEXCEPT_H__

@@ -3,33 +3,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_LANG_H__
-#define __HAS_MACROS_LIB_LANG_H__
+#ifndef __HAS_CPPMACROS_LANG_H__
+#define __HAS_CPPMACROS_LANG_H__
 
 /*! \file lang.h
     \brief Language depend utils. C/C++
 */
 
-/*! 
-   \brief Semicolon literal, replace to ';'
-*/
-#define PP_SEMICOLON ;
-
-
-/*! 
-   \brief Append code semicolon literal
-   \param __VA_ARGS__ code.
-   \returns code ended semicolon literal
-*/
-#define PP_APPEND_SEMICOLON(...) __VA_ARGS__ PP_SEMICOLON
-
-/*!
-   \brief Apply \a macro to every item of arguments list and append semicolon. Maximum iterate is PP_VA_MAXARGS arguments.
-   \param macro functional macro take one argument - list item
-   \param __VA_ARGS__ arguments list
-   \returns result of \a macro call on every arguments as list with separated and ended the semicolon
-*/
-#define PP_VA_SEMICOLON_LIST(macro, ...) PP_INVOKE( PP_ITERATE, ( PP_VA_SEMICOLON_LIST_ITEM, macro, __VA_ARGS__ ) )
 
 /* */
 #define PP_FUNC_IF_BRACKETS_PP_HAS_BRACKETS
@@ -80,4 +60,4 @@ namespace __MacrosLibPrivate
 #define PP_TO_BOOL(c) PP_IF( c , true, false )
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_LANG_H__
+#endif // __HAS_CPPMACROS_LANG_H__

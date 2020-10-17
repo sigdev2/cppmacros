@@ -3,17 +3,14 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_SWITCH_H__
-#define __HAS_MACROS_LIB_SWITCH_H__
+#ifndef __HAS_CPPMACROS_SWITCH_H__
+#define __HAS_CPPMACROS_SWITCH_H__
 
 /*! \file switch.h
-    \brief Macros for write switch ... case ... default constructions  
-    
-    Depend from:
-     - /preprocessor/variadic.h
+    \brief Macros for write switch ... case ... default constructions
 */
 
-#include "../preprocessor/variadic.h"
+#include "../macroslib/src/macroslib.h"
 
 
 /*!
@@ -22,6 +19,7 @@
    \returns switch operator with open bracket
 */
 #define SWITCH_BEGIN(...) switch(__VA_ARGS__) {
+
 /*!
    \brief End switch block
    \returns close bracket
@@ -35,6 +33,7 @@
    \returns Case with \a key as switch value and \a __VA_ARGS__ as body of code block
 */
 #define CASE(key, ...) case ( key ): { ( __VA_ARGS__ ) break; }
+
 /*!
    \brief Case block with return
    \param key value
@@ -56,4 +55,4 @@
 #define DEFCASE(...) PP_VA_FUNC(DEFCASE, __VA_ARGS__)
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_SWITCH_H__
+#endif // __HAS_CPPMACROS_SWITCH_H__

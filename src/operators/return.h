@@ -3,17 +3,18 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_RETURN_H__
-#define __HAS_MACROS_LIB_RETURN_H__
+#ifndef __HAS_CPPMACROS_RETURN_H__
+#define __HAS_CPPMACROS_RETURN_H__
 
 /*! \file return.h
     \brief Short return operators
 
     Depend from:
-     - /preprocessor/utils.h
+     - /operators/while.h
 */
 
-#include "../preprocessor/utils.h"
+#include "while.h"
+
 
 /*!
    \brief Safe do something and return void
@@ -23,4 +24,4 @@
 #define return_void(...)  PP_DO_SAFE(__VA_ARGS__; return;)
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_RETURN_H__
+#endif // __HAS_CPPMACROS_RETURN_H__

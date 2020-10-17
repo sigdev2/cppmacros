@@ -3,12 +3,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_WHILE_H__
-#define __HAS_MACROS_LIB_WHILE_H__
+#ifndef __HAS_CPPMACROS_WHILE_H__
+#define __HAS_CPPMACROS_WHILE_H__
 
 /*! \file while.h
     \brief Loop operators
 */
+
 
 /*!
    \brief Loop working forever whith disable all warrings. May be used with do operator.
@@ -42,4 +43,4 @@
 #define PP_DO_SAFE(...) do { __VA_ARGS__ ; } whileone
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_WHILE_H__
+#endif // __HAS_CPPMACROS_WHILE_H__

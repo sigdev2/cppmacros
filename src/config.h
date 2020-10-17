@@ -3,14 +3,15 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_CONFIG_H__
-#define __HAS_MACROS_LIB_CONFIG_H__
+#ifndef __HAS_CPPMACROS_CONFIG_H__
+#define __HAS_CPPMACROS_CONFIG_H__
 
 /*! \file config.h
-    \brief File with MacrosLib configuration.
+    \brief File with CppMacros configuration.
     
     Define base macros then used in library. If you need you may redefine this macros before include library.
 */
+
 
 // Types
 
@@ -115,4 +116,4 @@
 #endif // TR
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_CONFIG_H__
+#endif // __HAS_CPPMACROS_CONFIG_H__

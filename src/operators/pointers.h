@@ -3,20 +3,20 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_POINTERS_H__
-#define __HAS_MACROS_LIB_POINTERS_H__
+#ifndef __HAS_CPPMACROS_POINTERS_H__
+#define __HAS_CPPMACROS_POINTERS_H__
 
 /*! \file pointers.h
     \brief Work with pointers
 
     Depend from:
      - /config.h
-     - /preprocessor/utils.h
+     - /operators/while.h
 */
 
 #include "../config.h"
+#include "while.h"
 
-#include "../preprocessor/utils.h"
 
 #ifdef __cplusplus
 
@@ -35,4 +35,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif //__HAS_MACROS_LIB_POINTERS_H__
+#endif //__CPPMACROS_POINTERS_H__

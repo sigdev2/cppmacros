@@ -3,17 +3,15 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_UNUSED_H__
-#define __HAS_MACROS_LIB_UNUSED_H__
+#ifndef __HAS_CPPMACROS_UNUSED_H__
+#define __HAS_CPPMACROS_UNUSED_H__
 
 /*! \file unused.h
     \brief Unused operator
-
-    Depend from:
-     - /preprocessor/functional.h
 */
 
-#include "../preprocessor/functional.h"
+#include "../macroslib/src/macroslib.h"
+
 
 /*!
    \brief Disable warrings for single unused variable
@@ -21,12 +19,13 @@
    \returns void casting variable
 */
 #define PP_UNUSED_SINGLE(...) ((void) __VA_ARGS__ )
+
 /*!
    \brief Disable warrings for unused variables
    \param __VA_ARGS__ unsused variables.
    \returns void casting variables.
 */
-#define unused(...) PP_INVOKE( PP_VA_SEMICOLON_LIST, (PP_UNUSED_SINGLE, __VA_ARGS__ ) )
+#define unused(...) PP_SEPARATE_LIST_M(PP_UNUSED_SINGLE, ; , __VA_ARGS__)
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_UNUSED_H__
+#endif // __HAS_CPPMACROS_UNUSED_H__
