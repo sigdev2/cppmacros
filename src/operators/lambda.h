@@ -3,16 +3,19 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_LAMBDA_H__
-#define __HAS_MACROS_LIB_LAMBDA_H__
+#ifndef __HAS_CPPMACROS_LAMBDA_H__
+#define __HAS_CPPMACROS_LAMBDA_H__
 
 /*! \file lambda.h
     \brief Macros for short write lambdas
 
     Depend from:
      - /common/versions.h
-     - /preprocessor/variadic.h
 */
+
+#include "../macroslib/src/macroslib.h"
+#include "../common/versions.h"
+
 
 #ifdef CXX11
 #    define LAMBDA_0
@@ -30,4 +33,4 @@
 #endif // C++11
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_LAMBDA_H__
+#endif // __HAS_CPPMACROS_LAMBDA_H__

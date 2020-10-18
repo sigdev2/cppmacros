@@ -2,12 +2,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_MAIN_H__
-#define __HAS_MACROS_LIB_MAIN_H__
+#ifndef __HAS_CPPMACROS_MAIN_H__
+#define __HAS_CPPMACROS_MAIN_H__
 
 /*! \file main.h
     \brief Main function headers
 */
+
 
 /*!
    \brief Base main function header without args
@@ -28,4 +29,4 @@
 #define MAIN_ENV int main (int argc, char** argv, char** env)
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_MAIN_H__
+#endif // __HAS_CPPMACROS_MAIN_H__

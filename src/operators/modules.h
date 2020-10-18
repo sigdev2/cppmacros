@@ -3,12 +3,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_MODULES_H__
-#define __HAS_MACROS_LIB_MODULES_H__
+#ifndef __HAS_CPPMACROS_MODULES_H__
+#define __HAS_CPPMACROS_MODULES_H__
 
 /*! \file modules.h
     \brief Macros for create c/c++ modules
 */
+
 
 #ifdef _MSC_VER
 //  Microsoft
@@ -50,4 +51,4 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_MODULES_H__
+#endif // __HAS_CPPMACROS_MODULES_H__

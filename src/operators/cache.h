@@ -3,16 +3,19 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_CACHE_H__
-#define __HAS_MACROS_LIB_CACHE_H__
+#ifndef __HAS_CPPMACROS_CACHE_H__
+#define __HAS_CPPMACROS_CACHE_H__
 
 /*! \file cache.h
     \brief Macros for simplae function caching
 
     Depend from:
-	 - /operators/if.h
-     - /preprocessor/utils.h
+	  - /operators/if.h
 */
+
+#include "../lang.h"
+#include "if.h"
+
 
 #ifdef __cplusplus
 
@@ -48,4 +51,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_CACHE_H__
+#endif // __HAS_CPPMACROS_CACHE_H__

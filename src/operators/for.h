@@ -3,24 +3,22 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_FOR_H__
-#define _HAS_MACROS_LIB_FOR_H__
+#ifndef __HAS_CPPMACROS_FOR_H__
+#define __HAS_CPPMACROS_FOR_H__
 
 /*! \file for.h
     \brief Foreach style operators for containers
 
     Depend from:
-	 - /config.h
+	  - /config.h
      - /common/versions.h
-     - /preprocessor/utils.h
-     - /preprocessor/variadic.h
 */
 
+#include "../macroslib/src/macroslib.h"
 #include "../config.h"
-
+#include "../lang.h"
 #include "../common/versions.h"
-#include "../preprocessor/utils.h"
-#include "../preprocessor/variadic.h"
+
 
 // fori
 #define fori_4(start, len, type, name) for (const PP_SINGLE_TYPE( type ) & _s = ( start ),\
@@ -79,6 +77,7 @@
    \returns loop expression without brackets
 */
 #define forj(len) fori(len, j)
+
 /*!
    \brief Iterate from end to start (reversed) of value with numeric type with default name 'j'. For compatibility it is better to use the full set of arguments. Alias rfori but default name is j, use in nested loops.
    \param start [optional, default 0, if 4 agruments (start, len, type, name)] start value from iterate
@@ -113,4 +112,4 @@
 #define forij(...) PP_VA_FUNC(forij, __VA_ARGS__)
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_FOR_H__
+#endif // __HAS_CPPMACROS_FOR_H__

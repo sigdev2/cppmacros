@@ -3,24 +3,22 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_FOREACH_H__
-#define __HAS_MACROS_LIB_FOREACH_H__
+#ifndef __HAS_CPPMACROS_FOREACH_H__
+#define __HAS_CPPMACROS_FOREACH_H__
 
 /*! \file foreach.h
     \brief Foreach style operators for containers
 
     Depend from:
-	 - /config.h
+	  - /config.h
      - /common/versions.h
-     - /preprocessor/utils.h
-     - /preprocessor/variadic.h
 */
 
+#include "../macroslib/src/macroslib.h"
 #include "../config.h"
-
+#include "../lang.h"
 #include "../common/versions.h"
-#include "../preprocessor/utils.h"
-#include "../preprocessor/variadic.h"
+
 
 #ifdef CXX11
 /*!
@@ -83,6 +81,7 @@ namespace __MacrosLibPrivate
 											reverse); }
 }
 
+
 // forit
 #ifdef CXX11
 #    define forit_3(collection, type, name) for (auto name  = __MacrosLibPrivate::_make( collection ); name != ( name ).end; ++ name )
@@ -134,6 +133,7 @@ namespace __MacrosLibPrivate
                                         for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE(__VA_ARGS__)> name##_it = __MacrosLibPrivate::_make( collection ); \
 										     name##_it != ( name##_it ).end; ++ name##_it , name = * name##_it )
 #endif // CXX11
+
 /*!
    \brief [C++] Iterate collection like foreach by value. For compatibility it is better to use the full set of arguments
    \param collection collection object
@@ -151,6 +151,7 @@ namespace __MacrosLibPrivate
    \returns loop expression without brackets
 */
 #define forech(...) forch(__VA_ARGS__)
+
 /*!
    \brief [C++] Iterate collection like foreach by value. For compatibility it is better to use the full set of arguments. Alias for forch
    \param collection collection object
@@ -187,4 +188,4 @@ namespace __MacrosLibPrivate
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_FOREACH_H__
+#endif // __HAS_CPPMACROS_FOREACH_H__

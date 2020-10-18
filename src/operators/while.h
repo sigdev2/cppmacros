@@ -16,6 +16,7 @@
    \returns Loop operator
 */
 #define forever while((void*)0, true) // note: disable warning, not for(;;) for use do { ... } forever
+
 /*!
    \brief Loop working one iteration whith disable all warrings. Must be use with do operator.
    \returns Loop operator
@@ -28,6 +29,7 @@
    \returns Loop operator
 */
 #define until(...) while(!( __VA_ARGS__ ))
+
 /*!
    \brief Short alias for while. May be used with do operator.
    \param __VA_ARGS__ condition.

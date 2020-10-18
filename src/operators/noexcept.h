@@ -13,7 +13,9 @@
      - /common/versions.h
 */
 
+#include "../macroslib/src/macroslib.h"
 #include "../common/versions.h"
+
 
 #ifdef CXX11
 /*!
@@ -21,7 +23,7 @@
    \param __VA_ARGS__ nothing or expression of noexcept
    \returns noexcept if supported
 */
-#    define NOEXCEPT(...) noexcept PP_VA_ARGS_LIST( __VA_ARGS__ )
+#    define NOEXCEPT(...) noexcept PP_SKIP_OR_CHOOSE( PP_COMMA_TEST( __VA_ARGS__ ) , ( __VA_ARGS__ ) )
 #else // CXX11
 #    define NOEXCEPT(...)
 #endif // CXX11

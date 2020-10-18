@@ -3,12 +3,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_CONSTEXPR_H__
-#define __HAS_MACROS_LIB_CONSTEXPR_H__
+#ifndef __HAS_CPPMACROS_CONSTEXPR_H__
+#define __HAS_CPPMACROS_CONSTEXPR_H__
 
 /*! \file constexpr.h
     \brief Constexpr stub if not supported
 */
+
 
 #ifdef CXX11
 /*!
@@ -21,4 +22,4 @@
 #endif // CXX11
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_CONSTEXPR_H__
+#endif // __HAS_CPPMACROS_CONSTEXPR_H__
