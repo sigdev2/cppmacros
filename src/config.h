@@ -15,7 +15,6 @@
 
 // Types
 
-// operators/for.h
 // operators/pointers.h
 
 #ifndef NULL
@@ -33,7 +32,7 @@
 // operators/foreach.h
 
 #ifndef STD_BASE_GET_IT
-#    ifdef CXX11
+#    if __cplusplus >= 201103L
 #        include <iterator>
 #        define STD_BASE_GET_IT(collection, type) std::##type( collection )
 #    else

@@ -54,7 +54,7 @@
    \param __VA_ARGS__ enum handle or items list.
    \returns switch expression
 */
-#define ENUM_TO_STR_RETCASE(var, ...) SWITCH_BEGIN ( var ) PP_MAP( ENUM_MEMBER_TO_STR_RETCASE, __VA_ARGS__ ) DEFCASE( _ass(false); return "<error>" ) SWITCH_END
+#define ENUM_TO_STR_RETCASE(var, ...) SWITCH_BEGIN ( var ) PP_STRIP_COMMAS_M(ENUM_MEMBER_TO_STR_RETCASE, __VA_ARGS__) DEFCASE( _ass(false); return "<error>" ) SWITCH_END
 
 /*!
    \brief [C++] Macro combinator, that define enum by \a name, and generate function of the form const char* <enum_type_name>_toString(<enum_type_name> v) that returns the names of the enum elements as strings

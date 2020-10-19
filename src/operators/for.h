@@ -10,12 +10,10 @@
     \brief Foreach style operators for containers
 
     Depend from:
-	  - /config.h
      - /common/versions.h
 */
 
 #include "../macroslib/src/macroslib.h"
-#include "../config.h"
 #include "../lang.h"
 #include "../common/versions.h"
 
@@ -24,8 +22,8 @@
 #define fori_4(start, len, type, name) for (const PP_SINGLE_TYPE( type ) & _s = ( start ),\
                                            const PP_SINGLE_TYPE( type ) & _l = ( len ),\
                                            PP_SINGLE_TYPE( type ) name = (_s < _l ? _s : _l),\
-										   const PP_SINGLE_TYPE( type ) & _e = (_s > _l ? _s : _l);\
-										   name < _e; ++ name )
+                                           const PP_SINGLE_TYPE( type ) & _e = (_s > _l ? _s : _l);\
+                                           name < _e; ++ name )
 #define fori_3(len, type, name) for ( PP_SINGLE_TYPE( type ) name = 0, const PP_SINGLE_TYPE( type ) & _l = len ; name < _l; ++ name )
 #ifdef CXX11
 #    define fori_2(len, name) fori_3(len, auto, name)
@@ -47,9 +45,9 @@
 //rfori
 #define rfori_4(start, len, type, name) for (const PP_SINGLE_TYPE( type ) & _s = ( start ),\
                                             const PP_SINGLE_TYPE( type ) & _l = ( len ),\
-											PP_SINGLE_TYPE( type ) name = (_s > _l ? _s : _l),\
-											const PP_SINGLE_TYPE( type ) & _e = (_s < _l ? _s : _l);\
-											name > _e; -- name )
+                                            PP_SINGLE_TYPE( type ) name = (_s > _l ? _s : _l),\
+                                            const PP_SINGLE_TYPE( type ) & _e = (_s < _l ? _s : _l);\
+                                            name > _e; -- name )
 #define rfori_3(len, type, name) for ( PP_SINGLE_TYPE( type ) name = ( len ) - 1; name > 0; -- name )
 #ifdef CXX11
 #    define rfori_2(len, name) rfori_3(len, auto, name)

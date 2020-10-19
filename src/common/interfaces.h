@@ -3,10 +3,11 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_INTERFACES_H__
-#define __HAS_MACROS_LIB_INTERFACES_H__
+#ifndef __HAS_CPPMACROS_INTERFACES_H__
+#define __HAS_CPPMACROS_INTERFACES_H__
 
 #include "debug.h"
+
 
 #ifdef __cplusplus
 
@@ -73,4 +74,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_INTERFACES_H__
+#endif // __HAS_CPPMACROS_INTERFACES_H__

@@ -3,8 +3,8 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROSLIB_VERSIONS_H__
-#define __HAS_MACROS_LIB_VERSIONS_H__
+#ifndef __HAS_CPPMACROS_VERSIONS_H__
+#define __HAS_CPPMACROS_VERSIONS_H__
 
 /*! \file versions.h
     \brief File with C/C++ compilers versions macros.
@@ -92,6 +92,7 @@
     And of course take a look at the standard С++ https://en.cppreference.com/w/cpp/preprocessor/replace#Predefined_macros
 */
 
+
 #if __cplusplus >= 199711L
 /*!
    \brief [C++] Defined if use C++98(1997) standard or grather
@@ -164,4 +165,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_VERSIONS_H__
+#endif // __HAS_CPPMACROS_VERSIONS_H__

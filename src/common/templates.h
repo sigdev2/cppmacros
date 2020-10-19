@@ -3,8 +3,8 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_TEMPLATES_H__
-#define __HAS_MACROS_LIB_TEMPLATES_H__
+#ifndef __HAS_CPPMACROS_TEMPLATES_H__
+#define __HAS_CPPMACROS_TEMPLATES_H__
 
 /*! \file templates.h
     \brief Macros for C++ templates
@@ -14,8 +14,10 @@
      - /preprocessor/utils.h
 */
 
+#include "../lang.h"
 #include "../preprocessor/utils.h"
 #include "../preprocessor/variadic.h"
+
 
 #ifdef __cplusplus
 
@@ -85,4 +87,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_TEMPLATES_H__
+#endif // __HAS_CPPMACROS_TEMPLATES_H__

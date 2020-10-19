@@ -3,11 +3,16 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_PROPERTY_H__
-#define __HAS_MACROS_LIB_PROPERTY_H__
+#ifndef __HAS_CPPMACROS_PROPERTY_H__
+#define __HAS_CPPMACROS_PROPERTY_H__
 
-#include "../preprocessor/utils.h"
-#include "../preprocessor/variadic.h"
+/*! \file property.h
+    \brief Class property macros.
+*/
+
+#include "../macroslib/src/macroslib.h"
+#include "../lang.h"
+
 
 #ifdef __cplusplus
 
@@ -41,4 +46,4 @@
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_PROPERTY_H__
+#endif // __HAS_CPPMACROS_PROPERTY_H__

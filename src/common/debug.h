@@ -3,8 +3,8 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#ifndef __HAS_MACROS_LIB_DEBUG_H__
-#define __HAS_MACROS_LIB_DEBUG_H__
+#ifndef __HAS_CPPMACROS_DEBUG_H__
+#define __HAS_CPPMACROS_DEBUG_H__
 
 /*! \file debug.h
     \brief Main file for MacrosLib include.
@@ -12,12 +12,14 @@
     Depend from:
 	 - /common/templates.h
 	 - /common/versions.h
-     - /preprocessor/utils.h
+	 - /operators/while.h
 */
 
+#include "../macroslib/src/macroslib.h"
+#include "../config.h"
+#include "../common/versions.h"
+#include "../operators/while.h"
 #include "templates.h"
-#include "versions.h"
-#include "../preprocessor/utils.h"
 
 
 // messages
@@ -66,12 +68,14 @@
    \returns print to out or nothing
 */
 #    define DEBUG_PRINT(...) DO_DEBUG(DEBUG_OUT << __VA_ARGS__ )
+
 /*!
    \brief Print expression and his calcilated value to DEBUG_OUT. Use DO_DEBUG
    \param __VA_ARGS__ variable or expression
    \returns print to out or nothing
 */
 #    define DEBUG_LOG(...) DEBUG_PRINT(#__VA_ARGS__ << " = [" << ( __VA_ARGS__ ) << "]\n")
+
 /*!
    \brief Print expression, his calcilated value and calling function to DEBUG_OUT. Use DO_DEBUG
    \param __VA_ARGS__ variable or expression
@@ -148,6 +152,7 @@
 #    define _dmsg(...) DEBUG_MESSAGE(__VA_ARGS__)
 #endif // _dmsg
 
+
 // assert
 
 /*!
@@ -156,6 +161,7 @@
    \returns assert or nothing
 */
 #define _ass(...) DO_DEBUG(assert(__VA_ARGS__))
+
 /*!
    \brief Assert expression, throw assert if arguments is true. Use DO_DEBUG.
    \param __VA_ARGS__ bool variable or expression
@@ -175,6 +181,7 @@
    \returns condition expression with assert
 */
 #define assert_if(x, ...) PP_ASSERT_CHECK_IF( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and execude code in arguments. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -182,6 +189,7 @@
    \returns condition expression with assert
 */
 #define assert_ifn(x, ...) PP_ASSERT_CHECK_IF(!( x ), __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -189,6 +197,7 @@
    \returns condition expression with assert
 */
 #define assert_retif(x, ...) assert_if( x , return __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -196,6 +205,7 @@
    \returns condition expression with assert
 */
 #define assert_retifn(x, ...) assert_ifn( x , return __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return true. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -203,6 +213,7 @@
    \returns condition expression with assert
 */
 #define assert_trueif(...) assert_if(( __VA_ARGS__ ), return true )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return false. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -210,6 +221,7 @@
    \returns condition expression with assert
 */
 #define assert_falseif(...) assert_if(( __VA_ARGS__ ), return false )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return true. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -217,6 +229,7 @@
    \returns condition expression with assert
 */
 #define assert_trueifn(...) assert_ifn(( __VA_ARGS__ ), return true )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return false. Assert is use DO_DEBUG, but the condition remains.
    \param x bool condition
@@ -227,6 +240,7 @@
 
 
 // rif
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and execude code in arguments. Assert is use DO_DEBUG, but the condition remains. assert_if alias
    \param x bool condition
@@ -234,6 +248,7 @@
    \returns condition expression with assert
 */
 #define _rif(x, ...) assert_if( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and execude code in arguments. Assert is use DO_DEBUG, but the condition remains. assert_ifn alias
    \param x bool condition
@@ -241,6 +256,7 @@
    \returns condition expression with assert
 */
 #define _rifn(x, ...) assert_ifn( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retif alias
    \param x bool condition
@@ -248,6 +264,7 @@
    \returns condition expression with assert
 */
 #define _rifret(x, ...) assert_retif( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retifn alias
    \param x bool condition
@@ -255,6 +272,7 @@
    \returns condition expression with assert
 */
 #define _rifnret(x, ...) assert_retifn( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return true. Assert is use DO_DEBUG, but the condition remains. assert_trueif alias
    \param x bool condition
@@ -262,6 +280,7 @@
    \returns condition expression with assert
 */
 #define _rtrueif(...) assert_trueif(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return false. Assert is use DO_DEBUG, but the condition remains. assert_falseif alias
    \param x bool condition
@@ -269,6 +288,7 @@
    \returns condition expression with assert
 */
 #define _rfalseif(...) assert_falseif(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return true. Assert is use DO_DEBUG, but the condition remains. assert_trueifn alias
    \param x bool condition
@@ -276,6 +296,7 @@
    \returns condition expression with assert
 */
 #define _rtrueifn(...) assert_trueifn(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return false. Assert is use DO_DEBUG, but the condition remains. assert_falseifn alias
    \param x bool condition
@@ -286,6 +307,7 @@
 
 
 // if asserts
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and execude code in arguments. Assert is use DO_DEBUG, but the condition remains. assert_if alias
    \param x bool condition
@@ -293,6 +315,7 @@
    \returns condition expression with assert
 */
 #define ifa(x, ...) assert_if( x , __VA_ARGS__  )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and execude code in arguments. Assert is use DO_DEBUG, but the condition remains. assert_ifn alias
    \param x bool condition
@@ -300,6 +323,7 @@
    \returns condition expression with assert
 */
 #define ifna(x, ...) assert_ifn( x , __VA_ARGS__  )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retif alias
    \param x bool condition
@@ -307,6 +331,7 @@
    \returns condition expression with assert
 */
 #define return_ifa(x, ...) assert_retif( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retifn alias
    \param x bool condition
@@ -314,6 +339,7 @@
    \returns condition expression with assert
 */
 #define return_ifna(x, ...) assert_retifn( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retif alias
    \param x bool condition
@@ -321,6 +347,7 @@
    \returns condition expression with assert
 */
 #define retifa(x, ...) assert_retif( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return value in arguments. Assert is use DO_DEBUG, but the condition remains. assert_retifn alias
    \param x bool condition
@@ -328,6 +355,7 @@
    \returns condition expression with assert
 */
 #define retifna(x, ...) assert_retifn( x , __VA_ARGS__ )
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return true. Assert is use DO_DEBUG, but the condition remains. assert_trueif alias
    \param x bool condition
@@ -335,6 +363,7 @@
    \returns condition expression with assert
 */
 #define true_ifa(...) assert_trueif(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is true then throw assert and return false. Assert is use DO_DEBUG, but the condition remains. assert_falseif alias
    \param x bool condition
@@ -342,6 +371,7 @@
    \returns condition expression with assert
 */
 #define false_ifa(...) assert_falseif(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return true. Assert is use DO_DEBUG, but the condition remains. assert_trueifn alias
    \param x bool condition
@@ -349,6 +379,7 @@
    \returns condition expression with assert
 */
 #define true_ifna(...) assert_trueifn(__VA_ARGS__)
+
 /*!
    \brief Condition expression with assert. If condition \a x is false then throw assert and return false. Assert is use DO_DEBUG, but the condition remains. assert_falseifn alias
    \param x bool condition
@@ -378,6 +409,7 @@ namespace __MacrosLibPrivate
    \returns empty structure template
 */
 #define TYPE_ASSERT(...) __MacrosLibPrivate::TVoid< __VA_ARGS__ >
+
 /*!
    \brief [C++] Check type existing. Use when inherit and with TVoid< TYPE > template cast to an empty structure, which is skipped on compilationand causes a compilation error if the type does not exist. TYPE_ASSERT alias
    \param __VA_ARGS__ type
@@ -388,4 +420,4 @@ namespace __MacrosLibPrivate
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // __HAS_MACROS_LIB_DEBUG_H__
+#endif // __HAS_CPPMACROS_DEBUG_H__

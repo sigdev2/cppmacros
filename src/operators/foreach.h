@@ -130,8 +130,8 @@ namespace __MacrosLibPrivate
 #else
 #    define forch_2(collection, name)
 #    define forch3(collection, name, ...) PP_SINGLE_TYPE(__VA_ARGS__)::value_type name = STD_PAIR_VALUE(collection.begin()); \
-                                        for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE(__VA_ARGS__)> name##_it = __MacrosLibPrivate::_make( collection ); \
-										     name##_it != ( name##_it ).end; ++ name##_it , name = * name##_it )
+                                          for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE(__VA_ARGS__)> name##_it = __MacrosLibPrivate::_make( collection ); \
+                                          name##_it != ( name##_it ).end; ++ name##_it , name = * name##_it )
 #endif // CXX11
 
 /*!
