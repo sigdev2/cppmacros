@@ -8,15 +8,10 @@
 
 /*! \file templates.h
     \brief Macros for C++ templates
-    
-    Depend from:
-     - /preprocessor/variadic.h
-     - /preprocessor/utils.h
 */
 
+#include "../macroslib/src/macroslib.h"
 #include "../lang.h"
-#include "../preprocessor/utils.h"
-#include "../preprocessor/variadic.h"
 
 
 #ifdef __cplusplus
@@ -27,12 +22,14 @@
    \returns typename \a __VA_ARGS__
 */
 #define PP_TYPENAMES_LIST_HEAD( ... ) typename __VA_ARGS__
+
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword. Maximum arguments count is PP_VA_MAXARGS.
    \param __VA_ARGS__ types or template arguments names
    \returns typenames list
 */
-#define TYPENAMES_LIST(...) PP_INVOKE(PP_VA_COMMA_LIST, (PP_TYPENAMES_LIST_HEAD, __VA_ARGS__))
+#define TYPENAMES_LIST(...) PP_MAP(PP_TYPENAMES_LIST_HEAD , __VA_ARGS__)
+
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword with numerated types names like _1, _2, _3 in \a NUM count and maximum as PP_VA_MAXARGS.
    \param NUM count of types
@@ -46,13 +43,15 @@
    \returns typename \a __VA_ARGS__ = void
 */
 #define PP_TYPENAMES_LIST_VOID_HEAD(...) typename __VA_ARGS__ = void
+
 /*! 
    \brief [C++] Сomma separated list of template arguments names marked typename keyword and set default value as void.
    Maximum arguments count is PP_VA_MAXARGS.
    \param __VA_ARGS__ template arguments names
    \returns typenames list with void default values
 */
-#define TYPENAMES_LIST_VOID(...) PP_INVOKE(PP_VA_COMMA_LIST, (PP_TYPENAMES_LIST_VOID_HEAD, __VA_ARGS__))
+#define TYPENAMES_LIST_VOID(...) PP_MAP(PP_TYPENAMES_LIST_VOID_HEAD , __VA_ARGS__)
+
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword with numerated types names like _1, _2, _3 in \a NUM count with maximum as PP_VA_MAXARGS and set default value as void.
    \param NUM count of types
@@ -65,13 +64,14 @@
    \param __VA_ARGS__ any arguments
    \returns comma separated list of void
 */
-#define VOIDS_LIST(...) PP_VA_REPEAT_COMMA(PP_APPLY, void, PP_INVOKE(PP_VA_SIZE, ( __VA_ARGS__ )))
+#define VOIDS_LIST(...) PP_REPEAT(void, PP_VA_SIZE( __VA_ARGS__ ))
+
 /*!
    \brief [C++] Сomma separated list of void types with size by \a NUM. Used for generate for template without default values list of unused arguments. Maximum list size is PP_VA_MAXARGS.
    \param NUM count of template arguments
    \returns comma separated list of void
 */
-#define VOIDS_LIST_N(NUM) PP_VA_REPEAT_COMMA(PP_APPLY, void, NUM)
+#define VOIDS_LIST_N(NUM) PP_REPEAT(void, NUM)
 
 
 #define PP_TYPES_LIST_HEAD(type, ...) type __VA_ARGS__
