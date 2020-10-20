@@ -17,25 +17,68 @@
 #ifdef __cplusplus
 
 /*! 
-   \brief [C++] Leding type name with typename keyword
-   \param __VA_ARGS__ type name
-   \returns typename \a __VA_ARGS__
+   \brief PP_LIST_TERM_BEFORE_COMMAS alias for generate lists of variables with types comma separated. Maximum arguments count is PP_VA_MAXARGS.
+   \param type type of variables
+   \param __VA_ARGS__ variables names list
+   \returns list of variables with types comma separated
 */
-#define PP_TYPENAMES_LIST_HEAD( ... ) typename __VA_ARGS__
+#define TYPES_LIST(type, ...) PP_LIST_TERM_BEFORE_COMMAS(type, __VA_ARGS__)
 
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword. Maximum arguments count is PP_VA_MAXARGS.
    \param __VA_ARGS__ types or template arguments names
    \returns typenames list
 */
-#define TYPENAMES_LIST(...) PP_MAP(PP_TYPENAMES_LIST_HEAD , __VA_ARGS__)
+#define TYPENAMES_LIST(...) TYPES_LIST(typename, __VA_ARGS__)
 
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword with numerated types names like _1, _2, _3 in \a NUM count and maximum as PP_VA_MAXARGS.
    \param NUM count of types
    \returns typenames list
 */
-#define TYPENAMES_LIST_N(NUM) TYPENAMES_LIST(PP_VA_GEN_A_N( NUM ))
+#define TYPENAMES_LIST_N(NUM) TYPES_LIST(typename, PP_VA_GEN_A_N( NUM ))
+
+/*! 
+   \brief Сomma separated list of bool variables. Maximum arguments count is PP_VA_MAXARGS.
+   \param __VA_ARGS__ variables names list
+   \returns comma separated list of bool variables
+*/
+#define BOOL_LIST(...) TYPES_LIST(bool, __VA_ARGS__)
+
+/*! 
+   \brief Сomma separated list of bool variables with numerated names like _1, _2, _3 in \a NUM count and maximum as PP_VA_MAXARGS.
+   \param NUM count of variables names
+   \returns comma separated list of bool variables with numerated names like _1, _2, _3
+*/
+#define BOOL_LIST_N(NUM) TYPES_LIST(bool, PP_VA_GEN_A_N( NUM ))
+
+/*! 
+   \brief Сomma separated list of int variables. Maximum arguments count is PP_VA_MAXARGS.
+   \param __VA_ARGS__ variables names list
+   \returns comma separated list of int variables
+*/
+#define INT_LIST(...) TYPES_LIST(int, __VA_ARGS__)
+
+/*! 
+   \brief Сomma separated list of int variables with numerated names like _1, _2, _3 in \a NUM count and maximum as PP_VA_MAXARGS.
+   \param NUM count of variables names
+   \returns comma separated list of int variables with numerated names like _1, _2, _3
+*/
+#define INT_LIST_N(NUM) TYPES_LIST(int, PP_VA_GEN_A_N( NUM ))
+
+/*! 
+   \brief Сomma separated list of float variables. Maximum arguments count is PP_VA_MAXARGS.
+   \param __VA_ARGS__ variables names list
+   \returns comma separated list of float variables
+*/
+#define FLOAT_LIST(...) TYPES_LIST(float, __VA_ARGS__)
+
+/*! 
+   \brief Сomma separated list of float variables with numerated names like _1, _2, _3 in \a NUM count and maximum as PP_VA_MAXARGS.
+   \param NUM count of variables names
+   \returns comma separated list of float variables with numerated names like _1, _2, _3
+*/
+#define FLOAT_LIST_N(NUM) TYPES_LIST(float, PP_VA_GEN_A_N( NUM ))
 
 /*! 
    \brief [C++] Leding type name with typename keyword and set void value
@@ -72,13 +115,6 @@
    \returns comma separated list of void
 */
 #define VOIDS_LIST_N(NUM) PP_REPEAT(void, NUM)
-
-
-#define PP_TYPES_LIST_HEAD(type, ...) type __VA_ARGS__
-#define TYPES_LIST(type, ...) PP_INVOKE(PP_VA_COMMA_LIST, (PP_TYPENAMES_LIST_HEAD, __VA_ARGS__))
-#define TEMPLATES_ARGS_HEAD_BOOL( dummy , head ) PP_COMMA bool head
-#define TEMPLATES_ARGS_BOOL(...) bool PP_INVOKE(PP_VA_HEAD, (__VA_ARGS__)) PP_VA_FOR(TEMPLATES_ARGS_HEAD_BOOL, 0, PP_INVOKE(PP_VA_TAIL, (__VA_ARGS__)))
-#define TEMPLATES_ARGS_BOOL_N(NUM) TEMPLATES_ARGS_BOOL(PP_VA_GEN_A_N( NUM ))
 
 #define PUBLIC_INHERIT_HEAD( dummy , head ) PP_COMMA public PP_SINGLE_TYPE_INHERIT( head )
 #define IPUBLIC_STATIC(...) public PP_SINGLE_TYPE_INHERIT(PP_INVOKE(PP_VA_HEAD, (__VA_ARGS__))) PP_VA_FOR(PUBLIC_INHERIT_HEAD, 0, PP_INVOKE(PP_VA_TAIL, (__VA_ARGS__)))

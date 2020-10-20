@@ -25,7 +25,7 @@
    \param __VA_ARGS__ unsused variables.
    \returns void casting variables.
 */
-#define unused(...) PP_SEPARATE_LIST_M(PP_UNUSED_SINGLE, ; , __VA_ARGS__)
+#define unused(...) PP_SEPARATE_LIST_M(PP_UNUSED_SINGLE, ; , __VA_ARGS__);
 
 /////////////////////////////////////////////////////////////////////////////
 #endif // __HAS_CPPMACROS_UNUSED_H__
