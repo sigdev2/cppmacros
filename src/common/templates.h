@@ -11,10 +11,12 @@
 
     Depend from:
      - /common/lang.h"
+     - /common/versions.h"
 */
 
 #include "../macroslib/src/macroslib.h"
 #include "lang.h"
+#include "versions.h"
 
 
 /* */
@@ -34,12 +36,12 @@
 */
 #define TYPENAMES_LIST_N(NUM) TYPES_LIST(typename, PP_VA_GEN_A_N( NUM ))
 
-/*! 
-   \brief [C++] Leding type name with typename keyword and set void value
-   \param __VA_ARGS__ type name
-   \returns typename \a __VA_ARGS__ = void
+/*!
+   \brief [C++] Assigment void to variable with name \a __VA_ARGS__. Use in other macros.
+   \param __VA_ARGS__ variable name
+   \returns \a __VA_ARGS__ = void
 */
-#define PP_TYPENAMES_LIST_VOID_HEAD(...) typename __VA_ARGS__ = void
+#define PP_ASSIGMENT_VOID( ... ) __VA_ARGS__ = void
 
 /*! 
    \brief [C++] Сomma separated list of template arguments names marked typename keyword and set default value as void.
@@ -47,7 +49,7 @@
    \param __VA_ARGS__ template arguments names
    \returns typenames list with void default values
 */
-#define TYPENAMES_LIST_VOID(...) PP_MAP(PP_TYPENAMES_LIST_VOID_HEAD , __VA_ARGS__)
+#define TYPENAMES_LIST_VOID(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_ASSIGMENT_VOID, typename, __VA_ARGS__)
 
 /*! 
    \brief [C++] Сomma separated list of types marked typename keyword with numerated types names like _1, _2, _3 in \a NUM count with maximum as PP_VA_MAXARGS and set default value as void.
@@ -72,13 +74,30 @@
 
 
 #ifdef CXX11
-	template<typename ... T>
-    struct TVoid {};
+#    define VARIADIC_TEMPLATE( ... ) template<typename ... __VA_ARGS__>
 #else // CXX11
-    template<TYPENAMES_LIST_VOID_N(PP_VA_MAXARGS)>
-    struct TVoid {};
+/*!
+   \brief [C++] Definition header of a variadic template with support version of the standard lower than C++11.
+   If a version of the standard lower than C++11, then the maximum number of arguments is PP_VA_MAXARGS,
+   as well unpacking the template arguments is limited functional of VARIADIC_TEMPLATE_UNPACK macro.
+   \param __VA_ARGS__ count of name of template arguments set
+   \returns template definition header
+*/
+#    define VARIADIC_TEMPLATE( ... ) template< TYPENAMES_LIST_VOID_N(PP_VA_MAXARGS) >
 #endif // CXX11
 
+#ifdef CXX11
+#    define VARIADIC_TEMPLATE_UNPACK( ... ) __VA_ARGS__...
+#else // CXX11
+/*!
+   \brief [C++] Unpack variadic template arguments as list.
+   If a version of the standard lower than C++11, then not supported unpack as arguments of code template,
+   only as list with commas limited by count as PP_VA_MAXARGS
+   \param __VA_ARGS__ count of name of template arguments set
+   \returns unpacked variadic template arguments
+*/
+#    define VARIADIC_TEMPLATE_UNPACK( ... ) PP_VA_GEN_A_N(PP_VA_MAXARGS)
+#endif // CXX11
 
 #endif // __cplusplus
 

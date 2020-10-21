@@ -133,7 +133,9 @@
 #endif
 
 
+/* */
 #ifdef __cplusplus
+
 #    ifndef TRIVIAL_ABI
 #        ifdef __clang__
 #            define TRIVIAL_ABI __attribute__((trivial_abi))
@@ -162,6 +164,7 @@
 #            define TRIVIAL_ABI
 #        endif // __clang__
 #    endif // TRIVIAL_ABI
+
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,7 @@
 #include "../lang.h"
 
 
+/* */
 #ifdef __cplusplus
 
 #define DEFINE_PROPERTY(type, name) private: PP_SINGLE_TYPE( type ) __##name;

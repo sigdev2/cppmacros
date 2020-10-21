@@ -22,6 +22,13 @@
 
 
 #ifdef CXX11
+
+#   define forrange(name, begin, end, ...) for ( auto name = ( begin ); name != ( end ); ++( name ))
+
+#   define rforrange(name, begin, end, ...) for ( auto name = ( end ); ( name )-- != ( begin ); )
+
+#else
+
 /*!
    \brief Iterate from begin to end iterators. For compatibility it is better to use the full set of arguments
    \param name iterator name.
@@ -30,7 +37,8 @@
    \param __VA_ARGS__ [optional in C++11 and greater] type of iterator
    \returns loop expression without brackets
 */
-#   define forrange(name, begin, end, ...) for ( auto name = ( begin ); name != ( end ); ++( name ))
+#   define forrange(name, begin, end, ...) for ( PP_SINGLE_TYPE(__VA_ARGS__) name = ( begin );  name != ( end ); ++( name ))
+
 /*!
    \brief Iterate from end to begin (reversed) iterators. For compatibility it is better to use the full set of arguments
    \param name iterator name.
@@ -39,15 +47,15 @@
    \param __VA_ARGS__ [optional in C++11 and greater] type of iterator
    \returns loop expression without brackets
 */
-#   define rforrange(name, begin, end, ...) for ( auto name = ( end ); ( name )-- != ( begin ); )
-#else
-#   define forrange(name, begin, end, ...) for ( PP_SINGLE_TYPE(__VA_ARGS__) name = ( begin );  name != ( end ); ++( name ))
 #   define rforrange(name, begin, end, ...) for ( PP_SINGLE_TYPE(__VA_ARGS__) name = ( end ); ( name )-- != ( begin ); )
+
 #endif // C++11
 
+
+/* */
 #ifdef __cplusplus
 
-namespace __MacrosLibPrivate
+namespace __CppMacrosPrivate
 {
 	template<typename IT>
 	class MultiIterator : public IT
@@ -85,11 +93,11 @@ namespace __MacrosLibPrivate
 
 // forit
 #ifdef CXX11
-#    define forit_3(collection, type, name) for (auto name  = __MacrosLibPrivate::_make( collection ); name != ( name ).end; ++ name )
+#    define forit_3(collection, type, name) for (auto name  = __CppMacrosPrivate::_make( collection ); name != ( name ).end; ++ name )
 #    define forit_2(collection, name) forit_3(collection, NULL, name)
 #    define forit_1(collection) forit_2(collection, it)
 #else
-#    define forit_3(collection, type, name) for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE( type )> name = __MacrosLibPrivate::_make( collection ); name != ( name ).end; ++ name )
+#    define forit_3(collection, type, name) for (__CppMacrosPrivate::MultiIterator<PP_SINGLE_TYPE( type )> name = __CppMacrosPrivate::_make( collection ); name != ( name ).end; ++ name )
 #    define forit_2(collection, type) forit_3(collection, ( type ), it)
 #    define forit_1(collection)
 #endif // C++11
@@ -105,11 +113,11 @@ namespace __MacrosLibPrivate
 
 // rfroit
 #ifdef CXX11
-#    define rforit_3(collection, type, name) for (auto name  = __MacrosLibPrivate::_make( collection ); ( name )-- != ( name ).begin; )
+#    define rforit_3(collection, type, name) for (auto name  = __CppMacrosPrivate::_make( collection ); ( name )-- != ( name ).begin; )
 #    define rforit_2(collection, name) rforit_3(collection, NULL, name)
 #    define rforit_1(collection) rforit_2(collection, it)
 #else
-#    define rforit_3(collection, type, name) for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE( type )> name = __MacrosLibPrivate::_make( collection , true); ( name )-- != ( name ).begin; )
+#    define rforit_3(collection, type, name) for (__CppMacrosPrivate::MultiIterator<PP_SINGLE_TYPE( type )> name = __CppMacrosPrivate::_make( collection , true); ( name )-- != ( name ).begin; )
 #    define rforit_2(collection, type) rforit_3(collection, ( type ), it)
 #    define rforit_1(collection)
 #endif // C++11
@@ -131,7 +139,7 @@ namespace __MacrosLibPrivate
 #else
 #    define forch_2(collection, name)
 #    define forch3(collection, name, ...) PP_SINGLE_TYPE(__VA_ARGS__)::value_type name = STD_PAIR_VALUE(collection.begin()); \
-                                          for (__MacrosLibPrivate::MultiIterator<PP_SINGLE_TYPE(__VA_ARGS__)> name##_it = __MacrosLibPrivate::_make( collection ); \
+                                          for (__CppMacrosPrivate::MultiIterator<PP_SINGLE_TYPE(__VA_ARGS__)> name##_it = __CppMacrosPrivate::_make( collection ); \
                                           name##_it != ( name##_it ).end; ++ name##_it , name = * name##_it )
 #endif // CXX11
 
@@ -175,14 +183,14 @@ namespace __MacrosLibPrivate
 #endif // foreach
 
 #ifdef CXX11
+#define forval(colleltion, ...) foreach(colleltion, val)
+#else
 /*!
    \brief [C++] Iterate collection like foreach by value with name of variable 'val'. For compatibility it is better to use the full set of arguments.
    \param collection collection object
    \param __VA_ARGS__ [optional in C++11 and greater] type of iterator
    \returns loop expression without brackets
 */
-#define forval(colleltion, ...) foreach(colleltion, val)
-#else
 #define forval(colleltion, ...) foreach(colleltion, val, (__VA_ARGS__))
 #endif // CXX11
 

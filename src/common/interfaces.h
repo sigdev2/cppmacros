@@ -9,8 +9,8 @@
 #include "debug.h"
 
 
+/* */
 #ifdef __cplusplus
-
 
 #define IPUBLIC_STATIC(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, public, __VA_ARGS__)
 

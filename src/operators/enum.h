@@ -23,6 +23,7 @@
 #include "../common/debug.h"
 
 
+/* */
 #ifdef __cplusplus
 
 /*!

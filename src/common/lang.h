@@ -83,28 +83,29 @@
 */
 #define PP_FUNC_IF_BRACKETS(...) PP_CAT(PP_FUNC_IF_BRACKETS_, PP_HAS_BRACKETS __VA_ARGS__)
 
+
 /* */
 #ifdef __cplusplus
 
-namespace __MacrosLibPrivate
+namespace __CppMacrosPrivate
 {
     template<typename T> struct single_argument_type { typedef T type; };
     template<typename T, typename U> struct single_argument_type<T(U)> { typedef U type; };
 }
+
 /*! 
    \brief [C++] Convert any types or type list to single literal for use in code. This is needed in some macros and templates. May use for inherit classes.
    \param __VA_ARGS__ type or type list in parentheses.
    \returns type literal whithout typename keyword.
 */
-#define PP_SINGLE_TYPE_INHERIT(...) __MacrosLibPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
+#define PP_SINGLE_TYPE_INHERIT(...) __CppMacrosPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
 
 /*! 
    \brief [C++] Convert any types or type list to single literal for use in code. This is needed in some macros and templates for passing in parentheses complex types contains commas
    \param __VA_ARGS__ type or type list in parentheses.
    \returns type literal whith typename keyword.
 */
-#define PP_SINGLE_TYPE(...) typename __MacrosLibPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
-
+#define PP_SINGLE_TYPE(...) typename __CppMacrosPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
 
 #else // !__cplusplus
 
@@ -132,6 +133,14 @@ namespace __MacrosLibPrivate
    \returns Expands to \a __VA_ARGS__ in single operator loop
 */
 #define PP_DO_SAFE(...) do { __VA_ARGS__ ; } whileone
+
+/*!
+   \brief Assigment code \a y to variable with name \a x. Use in other macros.
+   \param x variable name.
+   \param y code to assigment.
+   \returns \a x = ( \a y )
+*/
+#define PP_ASSIGMENT(x, y) x = ( y )
 
 
 // HELPERS FOR IF OPERATORS

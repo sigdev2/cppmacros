@@ -12,12 +12,12 @@
 
 
 #ifdef CXX11
+#    define CONSTEXPR constexpr
+#else // CXX11
 /*!
    \brief Inserting constexpr modifier if is supported else remove his.
    \returns сonstexpr if supported
 */
-#    define CONSTEXPR constexpr
-#else // CXX11
 #    define CONSTEXPR
 #endif // CXX11
 

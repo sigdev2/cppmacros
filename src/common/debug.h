@@ -26,13 +26,13 @@
 
 #if (defined DEBUG || defined _DEBUG)
 #    include <assert.h>
+#    define DO_DEBUG(...) PP_DO_SAFE( __VA_ARGS__ )
+#else
 /*!
    \brief Do code inside only if DEBUG or _DEBUG macro defined
    \param __VA_ARGS__ code
    \returns code inside
 */
-#    define DO_DEBUG(...) PP_DO_SAFE( __VA_ARGS__ )
-#else
 #    define DO_DEBUG(...)
 #endif // DEBUG || _DEBUG
 
@@ -60,8 +60,11 @@
 #    endif // __FUNCTION_DECL__
 #endif // __FUNCTION_DECL__
 
+/* */
 #ifdef __cplusplus
+
 #    include <stdio.h>
+
 /*!
    \brief Print arguments to DEBUG_OUT. Use DO_DEBUG
    \param __VA_ARGS__ to out
@@ -83,24 +86,27 @@
 */
 #    define DEBUG_TRACE(...) DEBUG_PRINT( ( __VA_ARGS__ ) << "\nCallstack: " << \
             #__VA_ARGS__ << __FUNCTION_DECL__ << '[' << __FILE__ << ':' << __LINE__ << "]\n" )
+
 #else // !__cplusplus
+
 #    include <stdio.h>
 #    define DEBUG_PRINT(...) DO_DEBUG(fprintf(DEBUG_OUT, __VA_ARGS__ ))
 #    define DEBUG_LOG(...) DEBUG_PRINT( "%s = [ %s ]\n", #__VA_ARGS__, ( __VA_ARGS__ ))
 #    define DEBUG_TRACE(...) DEBUG_PRINT( "%s\nCallstack: %s [%s:%d]\n", ( __VA_ARGS__ ), \
             #__VA_ARGS__, __FUNCTION_DECL__, __FILE__, __LINE__,)
+
 #endif // __cplusplus
 
 #ifdef _WIN32
 #    pragma comment( lib, "user32.lib" )
 #    include <winuser.h>
+#    define DEBUG_MESSAGE(...) DO_DEBUG(MessageBoxA(0, ( __VA_ARGS__ ), "Debug", 0))
+#else // !_WIN32
 /*!
    \brief If _WIN32 defined then display GUI message with arguments string, else just print arguments to DEBUG_OUT. Use DO_DEBUG
    \param __VA_ARGS__ string variable or value
    \returns display GUI message, or print to out, or nothing
 */
-#    define DEBUG_MESSAGE(...) DO_DEBUG(MessageBoxA(0, ( __VA_ARGS__ ), "Debug", 0))
-#else // !_WIN32
 #    define DEBUG_MESSAGE(...) DEBUG_PRINT( ( __VA_ARGS__ ) )
 #endif // _WIN32
 
@@ -391,24 +397,21 @@
 
 // type assert
 
+/* */
 #ifdef __cplusplus
 
-namespace __MacrosLibPrivate
+namespace __CppMacrosPrivate
 {
-#ifdef CXX11
-	template<typename ... T>
-    struct TVoid {};
-#else // CXX11
-    template<TYPENAMES_LIST_VOID_N(PP_VA_MAXARGS)>
-    struct TVoid {};
-#endif // CXX11
+	VARIADIC_TEMPLATE(T)
+   struct TVoid {};
 }
+
 /*!
    \brief [C++] Check type existing. Use when inherit and with TVoid< TYPE > template cast to an empty structure, which is skipped on compilationand causes a compilation error if the type does not exist
    \param __VA_ARGS__ type
    \returns empty structure template
 */
-#define TYPE_ASSERT(...) __MacrosLibPrivate::TVoid< __VA_ARGS__ >
+#define TYPE_ASSERT(...) __CppMacrosPrivate::TVoid< __VA_ARGS__ >
 
 /*!
    \brief [C++] Check type existing. Use when inherit and with TVoid< TYPE > template cast to an empty structure, which is skipped on compilationand causes a compilation error if the type does not exist. TYPE_ASSERT alias

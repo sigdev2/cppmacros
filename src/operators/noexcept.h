@@ -18,13 +18,13 @@
 
 
 #ifdef CXX11
+#    define NOEXCEPT(...) noexcept PP_SKIP_OR_CHOOSE( PP_COMMA_TEST( __VA_ARGS__ ) , ( __VA_ARGS__ ) )
+#else // CXX11
 /*!
    \brief Inserting noexcept modifier if is supported else remove his. Note that this is a functional macro.
    \param __VA_ARGS__ nothing or expression of noexcept
    \returns noexcept if supported
 */
-#    define NOEXCEPT(...) noexcept PP_SKIP_OR_CHOOSE( PP_COMMA_TEST( __VA_ARGS__ ) , ( __VA_ARGS__ ) )
-#else // CXX11
 #    define NOEXCEPT(...)
 #endif // CXX11
 
