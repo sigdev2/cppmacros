@@ -37,12 +37,5 @@
 */
 #define loop(...) while( __VA_ARGS__ )
 
-/*!
-   \brief Call code from one or more operators in args, is anyway converted to single operator.
-   \param __VA_ARGS__ code.
-   \returns Expands to \a __VA_ARGS__ in single operator loop
-*/
-#define PP_DO_SAFE(...) do { __VA_ARGS__ ; } whileone
-
 /////////////////////////////////////////////////////////////////////////////
 #endif // __HAS_CPPMACROS_WHILE_H__

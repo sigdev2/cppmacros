@@ -12,13 +12,13 @@
     Depend from:
 	 - /common/templates.h
 	 - /common/versions.h
-	 - /operators/while.h
+	 - /common/lang.h
 */
 
 #include "../macroslib/src/macroslib.h"
 #include "../config.h"
-#include "../common/versions.h"
-#include "../operators/while.h"
+#include "lang.h"
+#include "versions.h"
 #include "templates.h"
 
 

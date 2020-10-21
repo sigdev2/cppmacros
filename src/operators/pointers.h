@@ -11,11 +11,11 @@
 
     Depend from:
      - /config.h
-     - /operators/while.h
+     - /common/lang.h
 */
 
 #include "../config.h"
-#include "while.h"
+#include "../common/lang.h"
 
 
 #ifdef __cplusplus

@@ -15,7 +15,6 @@
 
 #include "macroslib/src/macroslib.h"
 #include "config.h"
-#include "lang.h"
 
 
 #ifdef __DOXYGEN__
@@ -53,6 +52,7 @@
 #include "common/interfaces.h"
 #include "common/property.h"
 #include "common/templates.h"
+#include "common/lang.h"
 #include "common/versions.h"
 #endif // STRDEF_NO_COMMON
 

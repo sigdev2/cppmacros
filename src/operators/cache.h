@@ -10,10 +10,11 @@
     \brief Macros for simplae function caching
 
     Depend from:
+     - /common/lang.h"
 	  - /operators/if.h
 */
 
-#include "../lang.h"
+#include "../common/lang.h"
 #include "if.h"
 
 

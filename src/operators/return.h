@@ -10,10 +10,10 @@
     \brief Short return operators
 
     Depend from:
-     - /operators/while.h
+     - /common/lang.h
 */
 
-#include "while.h"
+#include "../common/lang.h"
 
 
 /*!

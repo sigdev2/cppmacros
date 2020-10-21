@@ -11,6 +11,11 @@
 
 #ifdef __cplusplus
 
+
+#define IPUBLIC_STATIC(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, public, __VA_ARGS__)
+
+#define IPUBLIC(...) IPUBLIC_STATIC(__VA_ARGS__)
+
 // Iterator
 
 #define ITERATOR_INTERFACE(...) typename __VA_ARGS__::iterator_category, \

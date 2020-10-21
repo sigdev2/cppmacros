@@ -10,13 +10,14 @@
     \brief Foreach style operators for containers
 
     Depend from:
-	  - /config.h
+     - /config.h
+     - /common/lang.h"
      - /common/versions.h
 */
 
 #include "../macroslib/src/macroslib.h"
 #include "../config.h"
-#include "../lang.h"
+#include "../common/lang.h"
 #include "../common/versions.h"
 
 

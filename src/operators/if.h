@@ -11,12 +11,12 @@
 
     Depend from:
      - /config.h
-     - /operators/while.h
+     - /common/lang.h
 */
 
 #include "../macroslib/src/macroslib.h"
 #include "../config.h"
-#include "while.h"
+#include "../common/lang.h"
 
 
 /*!
@@ -105,15 +105,6 @@
    \returns if ... else expression
 */
 #define defval(val, ...) (IS_EMPTY( val ) ? ( val ) : __VA_ARGS__)
-
-
-/*! 
-   \brief Call code if bool is true. Use for write short and safe if-operator in macroses.
-   \param x bool value.
-   \param __VA_ARGS__ code.
-   \returns Expands to \a x \a __VA_ARGS__
-*/
-#define PP_CHECK_IF(x, ...) PP_DO_SAFE(const bool PP_VAR = ( x ); if ( PP_VAR ) { __VA_ARGS__ ; })
 
 
 /*!
