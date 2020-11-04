@@ -69,20 +69,27 @@
 #define IPROTECTED(...) IPROTECTED_STATIC(__VA_ARGS__)
 
 
+// Declaration
+
+#define INTERFACE_TYPENAMES(class, ...) TYPES_LIST(typename class, __VA_ARGS__)
+#define INTERFACE_MIRROR_ITEM(class, item)  typedef typename class::##item item ;
+#define INTERFACE_MIRROR(class, ...) PP_ITERATE( INTERFACE_MIRROR_ITEM , class , __VA_ARGS__ )
+
 // Iterator
 
-#define ITERATOR_INTERFACE(...) typename __VA_ARGS__::iterator_category, \
-	typename __VA_ARGS__::value_type, \
-	typename __VA_ARGS__::difference_type, \
-	typename __VA_ARGS__::pointer, \
-	typename __VA_ARGS__::reference
+#define ITERATOR_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    iterator_category, \
+                                    value_type, \
+                                    difference_type, \
+                                    pointer, \
+                                    reference)
 	
-#define ITERATOR_INTERFACE_MIRROR(...)\
-	typedef typename __VA_ARGS__::iterator_category iterator_category; \
-	typedef typename __VA_ARGS__::value_type value_type; \
-	typedef typename __VA_ARGS__::difference_type difference_type; \
-	typedef typename __VA_ARGS__::pointer pointer; \
-	typedef typename __VA_ARGS__::reference reference;
+#define ITERATOR_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    iterator_category, \
+                                    value_type, \
+                                    difference_type, \
+                                    pointer, \
+                                    reference)
 
 #define IS_ITERATOR_TYPE(...)  TYPE_ASSERT(ITERATOR_INTERFACE(__VA_ARGS__))
 
