@@ -73,19 +73,20 @@
 // SINGLE TYPE
 
 /* */
+#ifdef __cplusplus
+
+/* */
 #define PP_FUNC_IF_BRACKETS_PP_HAS_BRACKETS
 #define PP_HAS_BRACKETS(...) void (__VA_ARGS__)
 #define PP_FUNC_IF_BRACKETS_void void
 /*! 
-   \brief Determines whether arguments are enclosed in parentheses, if so, converts them to the function type. This is used to convert type lists into a single type.
+   \brief [C++] Determines whether arguments are enclosed in parentheses, if so, converts them to the function type.
+   This is used to convert type lists into a single type, but imposes some additional compilation costs.
+   This mecros is just an example, use PP_UNPAREN
    \param __VA_ARGS__ type or type list in parentheses.
    \returns type or function type.
 */
 #define PP_FUNC_IF_BRACKETS(...) PP_CAT(PP_FUNC_IF_BRACKETS_, PP_HAS_BRACKETS __VA_ARGS__)
-
-
-/* */
-#ifdef __cplusplus
 
 namespace __CppMacrosPrivate
 {
@@ -98,14 +99,14 @@ namespace __CppMacrosPrivate
    \param __VA_ARGS__ type or type list in parentheses.
    \returns type literal whithout typename keyword.
 */
-#define PP_SINGLE_TYPE_INHERIT(...) __CppMacrosPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
+#define PP_SINGLE_TYPE_INHERIT(...) __CppMacrosPrivate::single_argument_type< PP_UNPAREN(__VA_ARGS__) >::type
 
 /*! 
    \brief [C++] Convert any types or type list to single literal for use in code. This is needed in some macros and templates for passing in parentheses complex types contains commas
    \param __VA_ARGS__ type or type list in parentheses.
    \returns type literal whith typename keyword.
 */
-#define PP_SINGLE_TYPE(...) typename __CppMacrosPrivate::single_argument_type< PP_FUNC_IF_BRACKETS(__VA_ARGS__) >::type
+#define PP_SINGLE_TYPE(...) typename __CppMacrosPrivate::single_argument_type< PP_UNPAREN(__VA_ARGS__) >::type
 
 #else // !__cplusplus
 

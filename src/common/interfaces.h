@@ -71,19 +71,58 @@
 
 // Declaration
 
-#define INTERFACE_TYPENAMES(class, ...) TYPES_LIST(typename class, __VA_ARGS__)
-#define INTERFACE_MIRROR_ITEM(class, item)  typedef typename class::##item item ;
-#define INTERFACE_MIRROR(class, ...) PP_ITERATE( INTERFACE_MIRROR_ITEM , class , __VA_ARGS__ )
+/*! 
+   \brief [C++] Return typename from \a ns namespace with \a name
+   \param ns namespace
+   \param name name of type
+   \returns typename \a ns :: \a name
+*/
+#define INTERFACE_TYPENAMES_ITEM(ns, name)  typename ns::##name
+
+/*! 
+   \brief [C++] Generate of typenames list from \a ns namespace
+   \param ns namespace
+   \param __VA_ARGS__ types list
+   \returns comma separated list of typenames from \a ns namespace
+*/
+#define INTERFACE_TYPENAMES(ns, ...) PP_MAP( INTERFACE_TYPENAMES_ITEM , __VA_ARGS__ )
+
+/*! 
+   \brief [C++] Create mirror typedef alias for type with \a name from \a ns namespace in another namespace.
+   \param ns namespace
+   \param name name of type
+   \returns typedef typename \a ns :: \a name \a name ;
+*/
+#define INTERFACE_MIRROR_ITEM(ns, name)  typedef typename ns::##item item ;
+
+/*! 
+   \brief [C++] Generate of mirror typedefs list of types aliases from \a ns namespace in another namespace.
+   \param ns namespace
+   \param __VA_ARGS__ types list
+   \returns comma separated list of typedefs aliases from \a ns namespace
+*/
+#define INTERFACE_MIRROR(ns, ...) PP_ITERATE( INTERFACE_MIRROR_ITEM , class , __VA_ARGS__ )
+
 
 // Iterator
 
+/*! 
+   \brief [C++] Std::iterator types list for use in inherits
+   \param __VA_ARGS__ namespace of types
+   \returns comma separated list of std::iterator typenames
+*/
 #define ITERATOR_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
                                     iterator_category, \
                                     value_type, \
                                     difference_type, \
                                     pointer, \
                                     reference)
-	
+
+/*! 
+   \brief [C++] Mirror typedefs of std::iterator types
+   \param __VA_ARGS__ namespace of types
+   \returns Mirror typedefs of std::iterator types
+*/
 #define ITERATOR_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
                                     iterator_category, \
                                     value_type, \
@@ -91,53 +130,130 @@
                                     pointer, \
                                     reference)
 
+/*! 
+   \brief [C++] Checking for the presence of std::iterator types in namespace.
+   Compilation error if missing, analogue of C++20 concepts.
+   \param __VA_ARGS__ namespace of types
+   \returns types assert
+*/
 #define IS_ITERATOR_TYPE(...)  TYPE_ASSERT(ITERATOR_INTERFACE(__VA_ARGS__))
 
 
 // Iterable
 
-#define ITERABLE_INTERFACE(...) typename __VA_ARGS__::iterator \
-    typename __VA_ARGS__::const_iterator \
-    typename __VA_ARGS__::reverse_iterator \
-    typename __VA_ARGS__::const_reverse_iterator
-	
-#define ITERABLE_INTERFACE_MIRROR(...)\
-	typedef typename __VA_ARGS__::iterator iterator; \
-    typedef typename __VA_ARGS__::const_iterator const_iterator; \
-    typedef typename __VA_ARGS__::reverse_iterator reverse_iterator; \
-    typedef typename __VA_ARGS__::const_reverse_iterator const_reverse_iterator;
+/*! 
+   \brief [C++] List of possible C++ iterator types for use in inherits
+   \param __VA_ARGS__ namespace of types
+   \returns comma separated list of possible C++ iterator typenames
+*/
+#define ITERABLE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    iterator, \
+                                    const_iterator, \
+                                    reverse_iterator, \
+                                    const_reverse_iterator)
 
+/*! 
+   \brief [C++] Mirror typedefs of possible C++ iterator types
+   \param __VA_ARGS__ namespace of types
+   \returns Mirror typedefs of possible C++ iterator types
+*/
+#define ITERABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    iterator, \
+                                    const_iterator, \
+                                    reverse_iterator, \
+                                    const_reverse_iterator)
+
+/*! 
+   \brief [C++] Checking for the presence of possible C++ iterator types in namespace.
+   Compilation error if missing, analogue of C++20 concepts.
+   \param __VA_ARGS__ namespace of types
+   \returns types assert
+*/
 #define IS_ITERABLE_TYPE(...)  TYPE_ASSERT(ITERABLE_INTERFACE(__VA_ARGS__))
 
 
 // Sizable
 
-#define SIZABLE_INTERFACE(...) typename __VA_ARGS__::size_type
-	
-#define SIZABLE_INTERFACE_MIRROR(...) typedef typename __VA_ARGS__::size_type size_type;
+/*! 
+   \brief [C++] C++ size type for use in inherits
+   \param __VA_ARGS__ namespace of type
+   \returns C++ size type
+*/
+#define SIZABLE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    size_type)
 
+/*! 
+   \brief [C++] Mirror typedef of C++ size type
+   \param __VA_ARGS__ namespace of type
+   \returns Mirror typedef of C++ size type
+*/
+#define SIZABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    size_type)
+
+/*! 
+   \brief [C++] Checking for the presence of C++ size type in namespace.
+   Compilation error if missing, analogue of C++20 concepts.
+   \param __VA_ARGS__ namespace of type
+   \returns type assert
+*/
 #define IS_SIZABLE_TYPE(...)  TYPE_ASSERT(SIZABLE_INTERFACE(__VA_ARGS__))
 
 
 // Pair
 
-#define PAIR_INTERFACE(...) typename __VA_ARGS__::first_type, \
-	typename __VA_ARGS__::second_type
-	
-#define PAIR_INTERFACE_MIRROR(...) typedef typename __VA_ARGS__::first_type first_type; \
-	typedef typename __VA_ARGS__::second_type second_type;
-	
+/*! 
+   \brief [C++] Std::pair types list for use in inherits
+   \param __VA_ARGS__ namespace of types
+   \returns comma separated list of std::pair typenames
+*/
+#define PAIR_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    first_type, \
+                                    second_type)
+
+/*! 
+   \brief [C++] Mirror typedefs of std::pair types
+   \param __VA_ARGS__ namespace of types
+   \returns Mirror typedefs of std::pair types
+*/
+#define PAIR_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    first_type, \
+                                    second_type)
+
+/*! 
+   \brief [C++] Checking for the presence of std::pair types in namespace.
+   Compilation error if missing, analogue of C++20 concepts.
+   \param __VA_ARGS__ namespace of types
+   \returns types assert
+*/
 #define IS_PAIR_INTERFACE(...) TYPE_ASSERT(PAIR_INTERFACE(__VA_ARGS__))
 
 
 // Key-value
 
-#define KEYVALUE_INTERFACE(...) typename __VA_ARGS__::key_type, \
-	typename __VA_ARGS__::value_type
-	
-#define KEYVALUE_INTERFACE_MIRROR(...) typedef typename __VA_ARGS__::key_type key_type; \
-	typedef typename __VA_ARGS__::value_type value_type;
-	
+/*! 
+   \brief [C++] Example of generate custom key-value types list for use in inherits
+   \param __VA_ARGS__ namespace of types
+   \returns comma separated list of custom key-value typenames
+*/
+#define KEYVALUE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    key_type, \
+                                    value_type)
+
+/*! 
+   \brief [C++] Example mirror typedefs of custom key-value types
+   \param __VA_ARGS__ namespace of types
+   \returns Mirror typedefs of custom key-value types
+*/
+#define KEYVALUE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+                                    key_type, \
+                                    value_type)
+
+/*! 
+   \brief [C++] Example checking for the presence of custom key-value types in namespace.
+   Compilation error if missing, analogue of C++20 concepts.
+   \param __VA_ARGS__ namespace of types
+   \returns types assert
+*/
 #define IS_KEYVALUE_INTERFACE(...) TYPE_ASSERT(KEYVALUE_INTERFACE(__VA_ARGS__))
 
 #endif // __cplusplus
