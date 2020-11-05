@@ -77,7 +77,7 @@
    \param name name of type
    \returns typename \a ns :: \a name
 */
-#define INTERFACE_TYPENAMES_ITEM(ns, name)  typename ns::##name
+#define INTERFACE_TYPENAMES_ITEM(ns, name)  PP_CAT(PP_SINGLE_TYPE(ns), ::##name)
 
 /*! 
    \brief [C++] Generate of typenames list from \a ns namespace
@@ -93,7 +93,7 @@
    \param name name of type
    \returns typedef typename \a ns :: \a name \a name ;
 */
-#define INTERFACE_MIRROR_ITEM(ns, name)  typedef typename ns::##item item ;
+#define INTERFACE_MIRROR_ITEM(ns, name)  typedef PP_CAT(PP_SINGLE_TYPE_INHERIT(ns), ::##name) name ;
 
 /*! 
    \brief [C++] Generate of mirror typedefs list of types aliases from \a ns namespace in another namespace.
@@ -111,7 +111,7 @@
    \param __VA_ARGS__ namespace of types
    \returns comma separated list of std::iterator typenames
 */
-#define ITERATOR_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define ITERATOR_INTERFACE(...) INTERFACE_TYPENAMES((__VA_ARGS__), \
                                     iterator_category, \
                                     value_type, \
                                     difference_type, \
@@ -123,7 +123,7 @@
    \param __VA_ARGS__ namespace of types
    \returns Mirror typedefs of std::iterator types
 */
-#define ITERATOR_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define ITERATOR_INTERFACE_MIRROR(...) INTERFACE_MIRROR((__VA_ARGS__), \
                                     iterator_category, \
                                     value_type, \
                                     difference_type, \
@@ -146,7 +146,7 @@
    \param __VA_ARGS__ namespace of types
    \returns comma separated list of possible C++ iterator typenames
 */
-#define ITERABLE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define ITERABLE_INTERFACE(...) INTERFACE_TYPENAMES((__VA_ARGS__), \
                                     iterator, \
                                     const_iterator, \
                                     reverse_iterator, \
@@ -157,7 +157,7 @@
    \param __VA_ARGS__ namespace of types
    \returns Mirror typedefs of possible C++ iterator types
 */
-#define ITERABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define ITERABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR((__VA_ARGS__), \
                                     iterator, \
                                     const_iterator, \
                                     reverse_iterator, \
@@ -179,7 +179,7 @@
    \param __VA_ARGS__ namespace of type
    \returns C++ size type
 */
-#define SIZABLE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define SIZABLE_INTERFACE(...) INTERFACE_TYPENAMES((__VA_ARGS__), \
                                     size_type)
 
 /*! 
@@ -187,7 +187,7 @@
    \param __VA_ARGS__ namespace of type
    \returns Mirror typedef of C++ size type
 */
-#define SIZABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define SIZABLE_INTERFACE_MIRROR(...) INTERFACE_MIRROR((__VA_ARGS__), \
                                     size_type)
 
 /*! 
@@ -206,7 +206,7 @@
    \param __VA_ARGS__ namespace of types
    \returns comma separated list of std::pair typenames
 */
-#define PAIR_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define PAIR_INTERFACE(...) INTERFACE_TYPENAMES((__VA_ARGS__), \
                                     first_type, \
                                     second_type)
 
@@ -215,7 +215,7 @@
    \param __VA_ARGS__ namespace of types
    \returns Mirror typedefs of std::pair types
 */
-#define PAIR_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define PAIR_INTERFACE_MIRROR(...) INTERFACE_MIRROR((__VA_ARGS__), \
                                     first_type, \
                                     second_type)
 
@@ -235,7 +235,7 @@
    \param __VA_ARGS__ namespace of types
    \returns comma separated list of custom key-value typenames
 */
-#define KEYVALUE_INTERFACE(...) INTERFACE_TYPENAMES(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define KEYVALUE_INTERFACE(...) INTERFACE_TYPENAMES((__VA_ARGS__), \
                                     key_type, \
                                     value_type)
 
@@ -244,7 +244,7 @@
    \param __VA_ARGS__ namespace of types
    \returns Mirror typedefs of custom key-value types
 */
-#define KEYVALUE_INTERFACE_MIRROR(...) INTERFACE_MIRROR(PP_SINGLE_TYPE_INHERIT(__VA_ARGS__), \
+#define KEYVALUE_INTERFACE_MIRROR(...) INTERFACE_MIRROR((__VA_ARGS__), \
                                     key_type, \
                                     value_type)
 
