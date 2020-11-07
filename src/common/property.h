@@ -39,8 +39,8 @@
    \brief [C++] Generate set-function with \a setter name and \a body for property in \a class with \a type and \a name
    \param body [optional, default just set value, if 5 agruments (class, type, name, setter, body)] body of setter function
    \param setter [optional, default set_name, if 4 agruments (class, type, name, setter)] name of setter function
-   \param type type of property
    \param name name of property
+   \param type type of property
    \param class class of property
    \returns property setter
 */
@@ -54,14 +54,15 @@
 #define GET_PROPERTY_0
 /*!
    \brief [C++] Generate get-function with \a getter name and \a body for property with \a type and \a name
-   \param body [optional, default just set value, if 4 agruments (type, name, getter, body)] body of getter function
+   \param body [optional, default just return value, if 4 agruments (type, name, getter, body)] body of getter function
    \param getter [optional, default get_name, if 3 agruments (type, name, getter)] name of getter function
-   \param type type of property
    \param name name of property
+   \param type type of property
    \returns property getter
 */
 #define GET_PROPERTY(...) PP_VA_FUNC(GET_PROPERTY, __VA_ARGS__)
 
+/**/
 #define PROPERTY_0
 #define PROPERTY_1(class)
 #define PROPERTY_2(class, type)
@@ -70,6 +71,17 @@
 #define PROPERTY_5(class, type, name, getter, setter) DEFINE_PROPERTY(( type ), name) SET_PROPERTY4(( class ), ( type ), name, setter) GET_PROPERTY3(( type ), name, getter)
 #define PROPERTY_6(class, type, name, getter, getbody, setter) DEFINE_PROPERTY(( type ), name) SET_PROPERTY4(( class ), ( type ), name, setter) GET_PROPERTY4(( type ), name, getter, getbody)
 #define PROPERTY_7(class, type, name, getter, getbody, setter, setbody) DEFINE_PROPERTY(( type ), name) SET_PROPERTY5(( class ), ( type ), name, setter, setbody) GET_PROPERTY4(( type ), name, getter, getbody)
+/*!
+   \brief [C++] Generate get-function and set-function with \a getter, \a setter name and \a body for property with \a type and \a name
+   \param setbody [optional, default just set value, if 7 agruments (class, type, name, getter, getbody, setter, setbody)] body of setter function
+   \param setter [optional, default set_name, if 6 agruments (class, type, name, getter, getbody, setter)] name of setter function
+   \param getbody [optional, default just return value, if 5 agruments (type, name, getter, body)] body of getter function
+   \param getter [optional, default get_name, if 4 agruments (class, type, name, getter)] name of getter function
+   \param name name of property
+   \param type type of property
+   \param class class of property
+   \returns define property
+*/
 #define PROPERTY(...) PP_VA_FUNC(PROPERTY, __VA_ARGS__)
 
 #endif // __cplusplus
