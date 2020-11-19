@@ -48,6 +48,7 @@
 #define STRDEF_NO_COMMON
 #endif // __DOXYGEN__
 #ifndef STRDEF_NO_COMMON
+#include "common/containers.h"
 #include "common/debug.h"
 #include "common/interfaces.h"
 #include "common/property.h"
