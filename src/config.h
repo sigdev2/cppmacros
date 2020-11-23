@@ -15,6 +15,18 @@
 
 // Types
 
+#ifdef _UNICODE
+#    ifndef UNICODE
+#        define UNICODE
+#    endif // UNICODE
+#endif // _UNICODE
+
+#ifdef UNICODE
+#    ifndef _UNICODE
+#        define _UNICODE
+#    endif // _UNICODE
+#endif // UNICODE
+
 // operators/pointers.h
 
 #ifndef NULL
