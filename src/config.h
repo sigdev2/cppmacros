@@ -27,16 +27,48 @@
 #    endif // _UNICODE
 #endif // UNICODE
 
+#ifndef CHAR_TYPE
+#    ifdef UNICODE
+#        define CHAR_TYPE wchar_t
+#    else
+#        define CHAR_TYPE char
+#    endif // UNICODE
+#endif // CHAR_TYPE
+
+#ifndef _T
+#    ifdef UNICODE
+#        define _T(c) L##c
+#    else 
+#        define _T(c) c
+#    endif // UNICODE
+#endif // _T
+
+#ifndef TEXT
+#    ifdef UNICODE
+#        define TEXT(c) L##c
+#    else 
+#        define TEXT(c) c
+#    endif // UNICODE
+#endif // TEXT
+
+#ifndef _TEXT
+#    ifdef UNICODE
+#        define _TEXT(c) L##c
+#    else 
+#        define _TEXT(c) c
+#    endif // UNICODE
+#endif // _TEXT
+
 // operators/pointers.h
 
 #ifndef NULL
 #    include <cstddef>
 #endif // NULL
 
-#ifndef TSize
+#ifndef SIZE_TYPE
 #    include <cstddef>
-#    define TSize size_t
-#endif // TSize
+#    define SIZE_TYPE size_t
+#endif // SIZE_TYPE
 
 
 // Iterator
