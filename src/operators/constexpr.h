@@ -8,7 +8,12 @@
 
 /*! \file constexpr.h
     \brief Constexpr stub if not supported
+
+    Depend from:
+     - /common/versions.h
 */
+
+#include "../common/versions.h"
 
 
 #ifdef CXX11

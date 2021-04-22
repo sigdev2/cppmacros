@@ -25,11 +25,13 @@
 #endif // __DOXYGEN__
 #ifndef STRDEF_NO_OPERATORS
 #include "operators/cache.h"
+#include "operators/concept.h"
 #include "operators/constexpr.h"
 #include "operators/enum.h"
 #include "operators/for.h"
 #include "operators/foreach.h"
 #include "operators/if.h"
+#include "operators/interface.h"
 #include "operators/lambda.h"
 #include "operators/main.h"
 #include "operators/modules.h"
