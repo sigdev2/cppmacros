@@ -51,7 +51,7 @@
 #else
 #    ifdef CXX11
 #        include <type_traits>
-#        define interface_inherit(NAME) template<typename T, typename  = std::enable_if_t< NAME < T > > >
+#        define interface_inherit(NAME) template<typename T, typename  = typename std::enable_if< NAME < T > >::type >
 #    else // CXX11
          /*!
              \brief Inserting template define header with one argument T which corresponds to the concept \a NMAE, or remove his if not supported
