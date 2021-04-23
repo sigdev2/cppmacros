@@ -69,6 +69,13 @@
 */
 #define FLOAT_LIST_N(NUM) TYPES_LIST(float, PP_VA_GEN_A_N( NUM ))
 
+/*! 
+   \brief Define dummy variable by \a type name
+   \param type type and name of variable
+   \returns dummy variable by \a type name with _ prefix
+*/
+#define TYPE_VARIABLE(type) type _##type
+
 
 // SINGLE TYPE
 
