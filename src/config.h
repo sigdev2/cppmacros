@@ -27,6 +27,11 @@
 #    endif // _UNICODE
 #endif // UNICODE
 
+#ifdef NO_UNICODE
+#    undef UNICODE
+#    undef _UNICODE
+#endif // NO_UNICODE
+
 #ifndef CHAR_TYPE
 #    ifdef UNICODE
 #        define CHAR_TYPE wchar_t

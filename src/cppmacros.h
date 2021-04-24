@@ -21,9 +21,9 @@
 /*! 
    \brief Macros for disable include operators section. But if other files depend for them, then ignored
 */
-#define STRDEF_NO_OPERATORS
+#define CPPMACROS_NO_OPERATORS
 #endif // __DOXYGEN__
-#ifndef STRDEF_NO_OPERATORS
+#ifndef CPPMACROS_NO_OPERATORS
 #include "operators/cache.h"
 #include "operators/concept.h"
 #include "operators/constexpr.h"
@@ -41,15 +41,15 @@
 #include "operators/switch.h"
 #include "operators/unused.h"
 #include "operators/while.h"
-#endif // STRDEF_NO_OPERATORS
+#endif // CPPMACROS_NO_OPERATORS
 
 #ifdef __DOXYGEN__
 /*! 
    \brief Macros for disable include code common macroses section. But if other files depend for them, then ignored
 */
-#define STRDEF_NO_COMMON
+#define CPPMACROS_NO_COMMON
 #endif // __DOXYGEN__
-#ifndef STRDEF_NO_COMMON
+#ifndef CPPMACROS_NO_COMMON
 #include "common/containers.h"
 #include "common/debug.h"
 #include "common/interfaces.h"
@@ -57,7 +57,7 @@
 #include "common/templates.h"
 #include "common/lang.h"
 #include "common/versions.h"
-#endif // STRDEF_NO_COMMON
+#endif // CPPMACROS_NO_COMMON
 
 /////////////////////////////////////////////////////////////////////////////
 #endif // __HAS_CPPMACROS_LIB_H__
