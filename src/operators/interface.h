@@ -82,101 +82,98 @@
 
 // Declare helpers
 
-#ifdef CXX20
-#    include <concepts>
-#    include <utility>
-#    define DECL_INTERFACE(NAME, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = requires (PP_MAP( TYPE_VARIABLE , __VA_ARGS__ )) { METHODS };
-#    define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = INHERIT && requires (PP_MAP( TYPE_VARIABLE , __VA_ARGS__ )) { METHODS };
+#ifdef CXX11
+#    include <type_traits>
+#    define DECL_INTERFACE(NAME, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = METHODS ;
+#    define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = ( INHERIT ) && ( METHODS ) ;
 #    define INTERFACE_INHERITS(...) PP_SEPARATE_LIST( && , __VA_ARGS__ )
-#    define INTERFACE_METHODS(...) PP_SEPARATE_LIST( && , __VA_ARGS__ )
+#    define INTERFACE_ITEMS(...) PP_SEPARATE_LIST( && , __VA_ARGS__ )
 #    define INTERFACE_INHERITS_OR(...) PP_SEPARATE_LIST( || , __VA_ARGS__ )
-#    define INTERFACE_METHODS_OR(...) PP_SEPARATE_LIST( || , __VA_ARGS__ )
-#    define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...) { std::declval<BASE &>() . NAME ( PP_MAP( PP_UNDERSCORE , __VA_ARGS__ ) ) } -> std::convertible_to< RET_TYPE >;
-#    define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...) { std::declval<const BASE &>(). NAME ( PP_MAP( PP_UNDERSCORE , __VA_ARGS__ ) ) } -> std::convertible_to< RET_TYPE >;
-#else
-#    ifdef CXX11
-#        include <type_traits>
-#        define DECL_INTERFACE(NAME, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = METHODS ;
-#        define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME  = INHERIT && METHODS ;
-#        define INTERFACE_INHERITS(...) PP_SEPARATE_LIST( && , __VA_ARGS__ )
-#        define INTERFACE_METHODS(...) PP_SEPARATE_LIST( && , __VA_ARGS__ )
-#        define INTERFACE_INHERITS_OR(...) PP_SEPARATE_LIST( || , __VA_ARGS__ )
-#        define INTERFACE_METHODS_OR(...) PP_SEPARATE_LIST( || , __VA_ARGS__ )
-#        define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...) std::is_same<decltype(& BASE :: NAME ), RET_TYPE ( BASE ::*)( __VA_ARGS__ )>::value
-#        define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...) std::is_same<decltype(& BASE :: NAME ), RET_TYPE ( BASE ::*)( __VA_ARGS__ ) const>::value
-#    else // CXX11
-#        ifdef __cplusplus
-#            define DECL_INTERFACE(NAME, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME { METHODS };
-#            define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME : public INHERIT { METHODS ; };
-#            define INTERFACE_INHERITS(...) PP_HEAD( __VA_ARGS__ ) PP_COMMA IPUBLIC( PP_TAIL( __VA_ARGS__ ) )
-#            define INTERFACE_METHODS(...) PP_SEPARATE_LIST( ; , __VA_ARGS__ )
-#            define INTERFACE_INHERITS_OR(...) PP_HEAD( __VA_ARGS__ ) PP_COMMA IPUBLIC( PP_TAIL( __VA_ARGS__ ) )
-#            define INTERFACE_METHODS_OR(...) PP_SEPARATE_LIST( ; , __VA_ARGS__ )
-#            define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...) virtual RET_TYPE NAME ( __VA_ARGS__ ) = 0
-#            define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...) virtual RET_TYPE NAME ( __VA_ARGS__ ) const = 0
-#        else // __cplusplus
-             /*!
-                 \brief Declarate interface with \a NAME and \a METHODS list builded with INTERFACE_METHODS, and list of types. If conceps not supported then class will be defined. Empty in C.
-                 \param NAME name of interface
-                 \param METHODS list of methods builded with INTERFACE_METHODS
-                 \param __VA_ARGS__ list of used types
-                 \returns interface with \a NAME and \a METHODS list builded with INTERFACE_METHODS. If conceps not supported then class will be defined. Empty in C.
-             */
-#            define DECL_INTERFACE(NAME, METHODS, ...)
-             /*!
-                 \brief Declarate interface with \a NAME with \a INHERIT parent and \a METHODS list builded with INTERFACE_METHODS, and list of types. If conceps not supported then class will be defined. Empty in C.
-                 \param NAME name of interface
-                 \param INHERIT parent interface or parents list builded with INTERFACE_INHERITS
-                 \param METHODS list of methods builded with INTERFACE_METHODS
-                 \param __VA_ARGS__ list of used types
-                 \returns interface with \a NAME and \a METHODS list declared with INTERFACE_METHODS. If conceps not supported then class will be defined. Empty in C.
-             */
-#            define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...)
-             /*!
-                 \brief Concatenate list of parents interfaces as INHERIT for DECL_INHERIT_INTERFACE. Empty in C.
-                 \param __VA_ARGS__ list interfaces of parents, which use interface types with prefix _
-                 \returns сoncatenated list of parents or empty in C.
-             */
-#            define INTERFACE_INHERITS(...)
-             /*!
-                 \brief Concatenate list of interface methods generated by INTERFACE_METHOD or INTERFACE_CONST_METHOD for DECL_INHERIT_INTERFACE and DECL_INTERFACE. Empty in C.
-                 \param __VA_ARGS__ list of interface methods, which use interface types with prefix _
-                 \returns сoncatenated list of interface methods or empty in C.
-             */
-#            define INTERFACE_METHODS(...)
-             /*!
-                 \brief Disjunction of parents intefaces list as INHERIT for DECL_INHERIT_INTERFACE. Empty in C.
-                 \param __VA_ARGS__ list interfaces of parents, which use interface types with prefix _
-                 \returns disjunction of parents intefaces list or empty in C.
-             */
-#            define INTERFACE_INHERITS_OR(...)
-             /*!
-                 \brief Disjunction of interface methods list generated by INTERFACE_METHOD or INTERFACE_CONST_METHOD for DECL_INHERIT_INTERFACE and DECL_INTERFACE. Empty in C.
-                 \param __VA_ARGS__ list of interface methods, which use interface types with prefix _
-                 \returns disjunction of interface methods list or empty in C.
-             */
-#            define INTERFACE_METHODS_OR(...)
-             /*!
-                 \brief Inserting test for method \a NAME with return type as \a RET_TYPE with arguments \a __VA_ARGS__ in \a BASE class in interface, or define virtual method if conceps not supported. Empty in C.
-                 \param BASE class to interface test
-                 \param RET_TYPE return method type
-                 \param NAME name of method
-                 \param __VA_ARGS__ method types of arguments, which use interface types with prefix _
-                 \returns method test or definition. Empty in C.
-             */
-#            define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...)
-             /*!
-                 \brief Inserting test for const method \a NAME with return type as \a RET_TYPE with arguments \a __VA_ARGS__ in \a BASE class in interface, or define virtual const method if conceps not supported. Empty in C.
-                 \param BASE class to interface test
-                 \param RET_TYPE return method type
-                 \param NAME name of const method
-                 \param __VA_ARGS__ method types of arguments, which use interface types with prefix _
-                 \returns const method test or definition. Empty in C.
-             */
-#            define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...)
-#        endif // __cplusplus
-#    endif // CXX11
-#endif // CXX20
+#    define INTERFACE_ITEMS_OR(...) PP_SEPARATE_LIST( || , __VA_ARGS__ )
+#    define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...) std::is_same<decltype(& BASE :: NAME ), RET_TYPE ( BASE ::*)( __VA_ARGS__ ) >::value
+#    define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...) std::is_same<decltype(& BASE :: NAME ), RET_TYPE ( BASE ::*)( __VA_ARGS__ ) const >::value
+#    define INTERFACE_VAR(BASE, TYPE, NAME) std::is_same<decltype(& BASE :: NAME ), TYPE BASE ::*>::value
+#else // CXX11
+#    ifdef __cplusplus
+#        define DECL_INTERFACE(NAME, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME { METHODS };
+#        define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...) multiinterface( __VA_ARGS__ ) NAME : public INHERIT { METHODS ; };
+#        define INTERFACE_INHERITS(...) PP_HEAD( __VA_ARGS__ ) PP_INSERT_COMMA() IPUBLIC( PP_TAIL( __VA_ARGS__ ) )
+#        define INTERFACE_ITEMS(...) PP_SEPARATE_LIST( ; , __VA_ARGS__ )
+#        define INTERFACE_INHERITS_OR(...) PP_HEAD( __VA_ARGS__ ) PP_INSERT_COMMA() IPUBLIC( PP_TAIL( __VA_ARGS__ ) )
+#        define INTERFACE_ITEMS_OR(...) PP_SEPARATE_LIST( ; , __VA_ARGS__ )
+#        define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...) virtual RET_TYPE NAME ( __VA_ARGS__ ) = 0
+#        define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...) virtual RET_TYPE NAME ( __VA_ARGS__ ) const = 0
+#        define INTERFACE_VAR(BASE, TYPE, NAME) TYPE NAME
+#    else // __cplusplus
+          /*!
+             \brief Declarate interface with \a NAME and \a METHODS list builded with INTERFACE_METHODS, and list of types. If constexpr not supported then class will be defined. Empty in C.
+             \param NAME name of interface
+             \param METHODS list of methods builded with INTERFACE_METHODS
+             \param __VA_ARGS__ list of used types
+             \returns interface with \a NAME and \a METHODS list builded with INTERFACE_METHODS. If constexpr not supported then class will be defined. Empty in C.
+         */
+#        define DECL_INTERFACE(NAME, METHODS, ...)
+         /*!
+             \brief Declarate interface with \a NAME with \a INHERIT parent and \a METHODS list builded with INTERFACE_METHODS, and list of types. If constexpr not supported then class will be defined. Empty in C.
+             \param NAME name of interface
+             \param INHERIT parent interface or parents list builded with INTERFACE_INHERITS
+             \param METHODS list of methods builded with INTERFACE_METHODS
+             \param __VA_ARGS__ list of used types
+             \returns interface with \a NAME and \a METHODS list declared with INTERFACE_METHODS. If constexpr not supported then class will be defined. Empty in C.
+         */
+#        define DECL_INHERIT_INTERFACE(NAME, INHERIT, METHODS, ...)
+         /*!
+             \brief Concatenate list of parents interfaces as INHERIT for DECL_INHERIT_INTERFACE. Empty in C.
+             \param __VA_ARGS__ list interfaces of parents
+             \returns сoncatenated list of parents or empty in C.
+         */
+#        define INTERFACE_INHERITS(...)
+         /*!
+             \brief Concatenate list of interface methods generated by INTERFACE_METHOD or INTERFACE_CONST_METHOD for DECL_INHERIT_INTERFACE and DECL_INTERFACE. Empty in C.
+             \param __VA_ARGS__ list of interface methods
+             \returns сoncatenated list of interface methods or empty in C.
+         */
+#        define INTERFACE_ITEMS(...)
+         /*!
+             \brief Disjunction of parents intefaces list as INHERIT for DECL_INHERIT_INTERFACE. Empty in C.
+             \param __VA_ARGS__ list interfaces of parents
+             \returns disjunction of parents intefaces list or empty in C.
+         */
+#        define INTERFACE_INHERITS_OR(...)
+         /*!
+             \brief Disjunction of interface methods list generated by INTERFACE_METHOD or INTERFACE_CONST_METHOD for DECL_INHERIT_INTERFACE and DECL_INTERFACE. Empty in C.
+             \param __VA_ARGS__ list of interface methods
+             \returns disjunction of interface methods list or empty in C.
+         */
+#        define INTERFACE_ITEMS_OR(...)
+         /*!
+             \brief Inserting test for method \a NAME with return type as \a RET_TYPE with arguments \a __VA_ARGS__ in \a BASE class in interface, or define virtual method if constexpr not supported. Empty in C.
+             \param BASE class to interface test
+             \param RET_TYPE return method type
+             \param NAME name of method
+             \param __VA_ARGS__ method types of arguments
+             \returns method test or definition. Empty in C.
+         */
+#        define INTERFACE_METHOD(BASE, RET_TYPE, NAME, ...)
+         /*!
+             \brief Inserting test for const method \a NAME with return type as \a RET_TYPE with arguments \a __VA_ARGS__ in \a BASE class in interface, or define virtual const method if constexpr not supported. Empty in C.
+             \param BASE class to interface test
+             \param RET_TYPE return method type
+             \param NAME name of const method
+             \param __VA_ARGS__ method types of arguments
+             \returns const method test or definition. Empty in C.
+         */
+#        define INTERFACE_CONST_METHOD(BASE, RET_TYPE, NAME, ...)
+         /*!
+             \brief Inserting test for variable with name \a NAME and type \a TYPE in \a BASE class in interface, or define this member if constexpr not supported. Empty in C.
+             \param BASE class to interface test
+             \param TYPE variable type
+             \param NAME name of variable
+             \returns variable with name \a NAME and type \a TYPE in \a BASE class in interface or definition. Empty in C.
+         */
+#        define INTERFACE_VAR(BASE, TYPE, NAME) TYPE NAME
+#    endif // __cplusplus
+#endif // CXX11
 
 /////////////////////////////////////////////////////////////////////////////
 #endif // __HAS_CPPMACROS_INTERFACE_H__
