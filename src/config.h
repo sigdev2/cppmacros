@@ -67,11 +67,19 @@
 // operators/pointers.h
 
 #ifndef NULL
-#    include <cstddef>
+#    ifdef __cplusplus
+#        include <cstddef>
+#    else // __cplusplus
+#        include <stddef>
+#    endif // __cplusplus
 #endif // NULL
 
 #ifndef SIZE_TYPE
-#    include <cstddef>
+#    ifdef __cplusplus
+#        include <cstddef>
+#    else // __cplusplus
+#        include <stddef>
+#    endif // __cplusplus
 #    define SIZE_TYPE size_t
 #endif // SIZE_TYPE
 

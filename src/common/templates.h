@@ -73,28 +73,6 @@
 #define VOIDS_LIST_N(NUM) PP_REPEAT(void, NUM)
 
 #ifdef CXX11
-#    define VARIADIC_TEMPLATE_ARG( ... )  ... __VA_ARGS__
-#else // CXX11
-/*!
-   \brief [C++] Arguments for definition header of a variadic template with support version of the standard lower than C++11.
-   If a version of the standard lower than C++11, then the maximum number of arguments is PP_VA_MAXARGS,
-   as well unpacking the template arguments is limited functional of VARIADIC_TEMPLATE_UNPACK macro.
-   \param __VA_ARGS__ name of template arguments set
-   \returns template definition header
-*/
-#    define VARIADIC_TEMPLATE_ARG( ... ) _1, TYPENAMES_LIST_VOID(PP_TAIL(PP_VA_GEN_A_N( PP_VA_MAXARGS )))
-#endif // CXX11
-
-/*!
-   \brief [C++] Definition header of a variadic template with support version of the standard lower than C++11.
-   If a version of the standard lower than C++11, then the maximum number of arguments is PP_VA_MAXARGS,
-   as well unpacking the template arguments is limited functional of VARIADIC_TEMPLATE_UNPACK macro.
-   \param __VA_ARGS__ name of template arguments set
-   \returns template definition header
-*/
-#define VARIADIC_TEMPLATE( ... ) template<typename VARIADIC_TEMPLATE_ARG( __VA_ARGS__ ) >
-
-#ifdef CXX11
 #    define VARIADIC_TEMPLATE_UNPACK( ... ) __VA_ARGS__...
 #else // CXX11
 /*!
@@ -104,8 +82,18 @@
    \param __VA_ARGS__ name of template arguments set
    \returns unpacked variadic template arguments
 */
-#    define VARIADIC_TEMPLATE_UNPACK( ... ) PP_VA_GEN_A_N(PP_VA_MAXARGS)
+#    define VARIADIC_TEMPLATE_UNPACK( ... ) PP_MAP(PP_CAT, PP_PREPEND_ALL( __VA_ARGS__ , PP_VA_GEN_A_N(PP_VA_MAXARGS)))
 #endif // CXX11
+
+/*!
+   \brief [C++] Definition header of a variadic template with support version of the standard lower than C++11.
+   If a version of the standard lower than C++11, then the maximum number of arguments is PP_VA_MAXARGS,
+   as well unpacking the template arguments is limited functional of VARIADIC_TEMPLATE_UNPACK macro.
+   \param __VA_ARGS__ name of template arguments set
+   \returns template definition header
+*/
+#define VARIADIC_TEMPLATE( ... ) template<TYPENAMES_LIST_VOID(VARIADIC_TEMPLATE_UNPACK( __VA_ARGS__ )) >
+
 
 #endif // __cplusplus
 
