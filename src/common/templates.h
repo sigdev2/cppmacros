@@ -85,7 +85,7 @@
    If a version of the standard lower than C++11, then not supported unpack as arguments of code template,
    only as list with commas limited by count as PP_VA_MAXARGS
    \param NAME name of template arguments set
-   \param COUNT [optional, default PP_VA_MAXARGS] in c++ version less than c++1 is maximum of variadic template arguments count
+   \param COUNT [optional, default PP_VA_MAXARGS] in c++ version less than c++1 is maximum of variadic template arguments count, is necessary in order to be able to generate sequences of a given length, for example, for another macro of limited PP_VA_MAXARGS
    \returns unpacked variadic template arguments
 */
 #define VARIADIC_TEMPLATE_UNPACK(...) PP_VA_FUNC(VARIADIC_TEMPLATE_UNPACK, __VA_ARGS__)
