@@ -72,18 +72,23 @@
 */
 #define VOIDS_LIST_N(NUM) PP_REPEAT(void, NUM)
 
+#define VARIADIC_TEMPLATE_UNPACK_0
 #ifdef CXX11
-#    define VARIADIC_TEMPLATE_UNPACK( ... ) __VA_ARGS__...
+#    define VARIADIC_TEMPLATE_UNPACK_1( NAME ) NAME...
+#    define VARIADIC_TEMPLATE_UNPACK_2( NAME, COUNT ) NAME...
 #else // CXX11
+#    define VARIADIC_TEMPLATE_UNPACK_1( NAME ) PP_MAP(PP_CAT, PP_PREPEND_ALL( NAME , PP_VA_GEN_A_N(PP_VA_MAXARGS)))
+#    define VARIADIC_TEMPLATE_UNPACK_2( NAME, COUNT ) PP_MAP(PP_CAT, PP_PREPEND_ALL( NAME , PP_VA_GEN_A_N(COUNT)))
+#endif // CXX11
 /*!
    \brief [C++] Unpack variadic template arguments as list.
    If a version of the standard lower than C++11, then not supported unpack as arguments of code template,
    only as list with commas limited by count as PP_VA_MAXARGS
-   \param __VA_ARGS__ name of template arguments set
+   \param NAME name of template arguments set
+   \param COUNT [optional, default PP_VA_MAXARGS] in c++ version less than c++1 is maximum of variadic template arguments count
    \returns unpacked variadic template arguments
 */
-#    define VARIADIC_TEMPLATE_UNPACK( ... ) PP_MAP(PP_CAT, PP_PREPEND_ALL( __VA_ARGS__ , PP_VA_GEN_A_N(PP_VA_MAXARGS)))
-#endif // CXX11
+#define VARIADIC_TEMPLATE_UNPACK(...) PP_VA_FUNC(VARIADIC_TEMPLATE_UNPACK, __VA_ARGS__)
 
 /*!
    \brief [C++] Definition header of a variadic template with support version of the standard lower than C++11.
