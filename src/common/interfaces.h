@@ -72,20 +72,12 @@
 // Declaration
 
 /*! 
-   \brief [C++] Return typename from \a ns namespace with \a name
-   \param ns namespace
-   \param name name of type
-   \returns typename \a ns :: \a name
-*/
-#define INTERFACE_TYPENAMES_ITEM(ns, name)  PP_CAT(PP_SINGLE_TYPE(ns), ::##name)
-
-/*! 
    \brief [C++] Generate of typenames list from \a ns namespace
    \param ns namespace
    \param __VA_ARGS__ types list
    \returns comma separated list of typenames from \a ns namespace
 */
-#define INTERFACE_TYPENAMES(ns, ...) PP_MAP( INTERFACE_TYPENAMES_ITEM , __VA_ARGS__ )
+#define INTERFACE_TYPENAMES(ns, ...) PP_MAP(PP_CAT, PP_PREPEND_ALL( typename PP_SINGLE_TYPE_INHERIT(ns)##:: , __VA_ARGS__ ))
 
 /*! 
    \brief [C++] Create mirror typedef alias for type with \a name from \a ns namespace in another namespace.
@@ -93,7 +85,7 @@
    \param name name of type
    \returns typedef typename \a ns :: \a name \a name ;
 */
-#define INTERFACE_MIRROR_ITEM(ns, name)  typedef PP_CAT(PP_SINGLE_TYPE_INHERIT(ns), ::##name) name ;
+#define INTERFACE_MIRROR_ITEM(ns, name)  typedef typename PP_CAT(PP_SINGLE_TYPE_INHERIT(ns), ::##name) name ;
 
 /*! 
    \brief [C++] Generate of mirror typedefs list of types aliases from \a ns namespace in another namespace.
@@ -101,7 +93,7 @@
    \param __VA_ARGS__ types list
    \returns comma separated list of typedefs aliases from \a ns namespace
 */
-#define INTERFACE_MIRROR(ns, ...) PP_ITERATE( INTERFACE_MIRROR_ITEM , class , __VA_ARGS__ )
+#define INTERFACE_MIRROR(ns, ...) PP_ITERATE( INTERFACE_MIRROR_ITEM , ns , __VA_ARGS__ )
 
 
 // Iterator
