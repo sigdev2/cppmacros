@@ -91,7 +91,7 @@
 #define VARIADIC_TEMPLATE_UNPACK(...) PP_VA_FUNC(VARIADIC_TEMPLATE_UNPACK, __VA_ARGS__)
 
 #ifdef CXX11
-#    define VARIADIC_TEMPLATE( ... ) template<typename VARIADIC_TEMPLATE_UNPACK( __VA_ARGS__ ) >
+#    define VARIADIC_TEMPLATE( ... ) template<typename ... __VA_ARGS__ >
 #else // CXX11
      /*!
         \brief [C++] Definition header of a variadic template with support version of the standard lower than C++11.
