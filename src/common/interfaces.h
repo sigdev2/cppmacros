@@ -24,49 +24,55 @@
 // Encapsulation
 
 /*! 
-   \brief [C++] Static (at macros time) comma separated list of inherits with public modifier of encapsulation.
+   \brief [C++] Static (at macros time) multiinherits public. Resolve to comma separated list of inherits with public modifier of encapsulation.
    Used for short entry. Maximum inherit count is PP_VA_MAXARGS.
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPUBLIC_STATIC(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, public, __VA_ARGS__)
+#define IPUBLIC_STATIC_MINHERIT(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, public, __VA_ARGS__)
 
 /*! 
-   \brief [C++] Static (at macros time) comma separated list of inherits with private modifier of encapsulation.
+   \brief [C++] Static (at macros time) multiinherits private. Resolve to comma separated list of inherits with private modifier of encapsulation.
    Used for short entry. Maximum inherit count is PP_VA_MAXARGS.
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPRIVATE_STATIC(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, private, __VA_ARGS__)
+#define IPRIVATE_STATIC_MINHERIT(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, private, __VA_ARGS__)
 
 /*! 
-   \brief [C++] Static (at macros time) comma separated list of inherits with protected modifier of encapsulation.
+   \brief [C++] Static (at macros time) multiinherits protected. Resolve to comma separated list of inherits with protected modifier of encapsulation.
    Used for short entry. Maximum inherit count is PP_VA_MAXARGS.
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPROTECTED_STATIC(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, protected, __VA_ARGS__)
+#define IPROTECTED_STATIC_MINHERIT(...) PP_LIST_TERM_BEFORE_COMMAS_M(PP_SINGLE_TYPE_INHERIT, protected, __VA_ARGS__)
 
+#ifndef IPUBLIC
 /*! 
    \brief [C++] Short alias for IPUBLIC_STATIC
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPUBLIC(...) IPUBLIC_STATIC(__VA_ARGS__)
+#define IPUBLIC(...) IPUBLIC_STATIC_MINHERIT(__VA_ARGS__)
+#endif // IPUBLIC
 
+#ifndef IPRIVATE
 /*! 
    \brief [C++] Short alias for IPRIVATE_STATIC
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPRIVATE(...) IPRIVATE_STATIC(__VA_ARGS__)
+#define IPRIVATE(...) IPRIVATE_STATIC_MINHERIT(__VA_ARGS__)
+#endif // IPRIVATE
 
+#ifndef IPROTECTED
 /*! 
    \brief [C++] Short alias for IPROTECTED_STATIC
    \param __VA_ARGS__ classes to inherit
    \returns inherits list
 */
-#define IPROTECTED(...) IPROTECTED_STATIC(__VA_ARGS__)
+#define IPROTECTED(...) IPROTECTED_STATIC_MINHERIT(__VA_ARGS__)
+#endif // IPROTECTED
 
 
 // Declaration

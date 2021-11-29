@@ -13,12 +13,16 @@
 #include "../macroslib/src/macroslib.h"
 
 
+#ifdef __cplusplus
 /*!
    \brief Disable warrings for single unused variable
    \param __VA_ARGS__ variable name
    \returns void casting variable
 */
-#define PP_UNUSED_SINGLE(...) ((void) __VA_ARGS__ )
+#    define PP_UNUSED_SINGLE(...) (static_cast<void>(__VA_ARGS__ ))
+#else // __cplusplus
+#    define PP_UNUSED_SINGLE(...) ((void) __VA_ARGS__ )
+#endif // __cplusplus
 
 /*!
    \brief Disable warrings for unused variables

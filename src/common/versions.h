@@ -165,6 +165,15 @@
 #        endif // __clang__
 #    endif // TRIVIAL_ABI
 
+#    ifdef __GNUC__
+#        ifndef __GNUG__
+/*! 
+   \brief Guaranteed define macro teste is the GNU C++ compiler.
+*/
+#            define __GNUG__
+#        endif // __GNUG__
+#    endif // __GNUC__
+
 #endif // __cplusplus
 
 /////////////////////////////////////////////////////////////////////////////

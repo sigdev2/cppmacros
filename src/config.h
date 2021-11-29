@@ -83,50 +83,51 @@
 #    define SIZE_TYPE size_t
 #endif // SIZE_TYPE
 
+// Collection
+
+#ifndef STD_BASE_GET
+#    if __cplusplus >= 201103L
+#        include <iterator>
+#        define STD_BASE_GET(collection, type) std::##type( collection )
+#    else
+#        define STD_BASE_GET(collection, type) ( collection ).##type()
+#    endif // C++11
+#endif // STD_BASE_GET
 
 // Iterator
 
 // operators/foreach.h
 
-#ifndef STD_BASE_GET_IT
-#    if __cplusplus >= 201103L
-#        include <iterator>
-#        define STD_BASE_GET_IT(collection, type) std::##type( collection )
-#    else
-#        define STD_BASE_GET_IT(collection, type) ( collection ).##type()
-#    endif // C++11
-#endif // STD_BASE_GET_IT
-
 #ifndef STD_BEGIN_IT
-#    define STD_BEGIN_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), begin )
+#    define STD_BEGIN_IT(...) STD_BASE_GET(( __VA_ARGS__ ), begin )
 #endif // STD_BEGIN_IT
 
 #ifndef STD_CBEGIN_IT
-#    define STD_CBEGIN_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), cbegin )
+#    define STD_CBEGIN_IT(...) STD_BASE_GET(( __VA_ARGS__ ), cbegin )
 #endif // STD_CBEGIN_IT
 
 #ifndef STD_RBEGIN_IT
-#    define STD_RBEGIN_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), rbegin )
+#    define STD_RBEGIN_IT(...) STD_BASE_GET(( __VA_ARGS__ ), rbegin )
 #endif // STD_RBEGIN_IT
 
 #ifndef STD_CRBEGIN_IT
-#    define STD_CRBEGIN_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), crbegin )
+#    define STD_CRBEGIN_IT(...) STD_BASE_GET(( __VA_ARGS__ ), crbegin )
 #endif // STD_CRBEGIN_IT
 
 #ifndef STD_END_IT
-#    define STD_END_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), end )
+#    define STD_END_IT(...) STD_BASE_GET(( __VA_ARGS__ ), end )
 #endif // STD_END_IT
 
 #ifndef STD_CEND_IT
-#    define STD_CEND_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), cend )
+#    define STD_CEND_IT(...) STD_BASE_GET(( __VA_ARGS__ ), cend )
 #endif // STD_CEND_IT
 
 #ifndef STD_REND_IT
-#    define STD_REND_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), rend )
+#    define STD_REND_IT(...) STD_BASE_GET(( __VA_ARGS__ ), rend )
 #endif // STD_REND_IT
 
 #ifndef STD_CREND_IT
-#    define STD_CREND_IT(...) STD_BASE_GET_IT(( __VA_ARGS__ ), crend )
+#    define STD_CREND_IT(...) STD_BASE_GET(( __VA_ARGS__ ), crend )
 #endif // STD_CREND_IT
 
 
@@ -148,11 +149,17 @@
 // operators/if.h
 
 #ifndef IS_EMPTY
-#    define IS_EMPTY(...) STD_BASE_GET_IT(( __VA_ARGS__ ), empty )
+#    define IS_EMPTY(...) STD_BASE_GET(( __VA_ARGS__ ), empty )
 #endif // IS_EMPTY
 
+// use with operators/for.h
 
-// Functions
+#ifndef LEN
+#    define LEN(...) STD_BASE_GET(( __VA_ARGS__ ), size )
+#endif // LEN
+
+
+// Debug
 
 // common/debug.h
 

@@ -28,7 +28,7 @@
 
 /*!
    \brief [C++] Define enum with \a name
-   \param name enum name.
+   \param name enum name, optional with style struct or class
    \param __VA_ARGS__ enum handle or items list.
    \returns enum definition
 */
@@ -36,7 +36,7 @@
 
 /*!
    \brief [C++] Define enum with \a name with set numeric values starting from 0
-   \param name enum name.
+   \param name enum name, optional with style struct or class
    \param __VA_ARGS__ enum handle or items list.
    \returns enum definition
 */
@@ -59,7 +59,7 @@
 
 /*!
    \brief [C++] Macro combinator, that define enum by \a name, and generate function of the form const char* <enum_type_name>_toString(<enum_type_name> v) that returns the names of the enum elements as strings
-   \param name enum name.
+   \param name enum name, optional with style struct or class
    \param __VA_ARGS__ enum handle or items list.
    \returns define enum and his _toString frunction
 */
