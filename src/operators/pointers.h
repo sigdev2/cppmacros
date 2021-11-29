@@ -25,17 +25,17 @@
 #ifdef CXX11
 #    define DELETE(pointer) PP_DO_SAFE(delete pointer ; pointer = NULL)
 #else // CXX11
-/*!
-   \brief Safe delete pointer and set pointer as NULL
-   \param pointer pointer, do not use expressions
-   \returns delete or free operator
-*/
 #    define DELETE(pointer) PP_DO_SAFE(delete pointer ; pointer = nullptr)
 #endif // CXX11
 
 #else // !__cplusplus
 
 #include <stdlib.h>
+/*!
+   \brief Safe delete pointer and set pointer as NULL
+   \param pointer pointer, do not use expressions
+   \returns delete or free operator
+*/
 #define DELETE(pointer) PP_DO_SAFE(free( pointer ); pointer = NULL)
 
 #endif // __cplusplus
