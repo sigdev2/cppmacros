@@ -68,7 +68,11 @@
 
 #ifndef NULL
 #    ifdef __cplusplus
-#        include <cstddef>
+#        if __cplusplus > 199711L
+#            define NULL nullptr
+#        else // less C++11
+#            include <cstddef>
+#        #endif // C++11
 #    else // __cplusplus
 #        include <stddef>
 #    endif // __cplusplus
