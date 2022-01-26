@@ -11,6 +11,7 @@
     
     Depend from:
      - /common/debug.h
+     - /common/versions.h
 */
 
 #include "../macroslib/src/macroslib.h"
@@ -253,6 +254,32 @@
    \returns types assert
 */
 #define IS_KEYVALUE_INTERFACE(...) TYPE_ASSERT(KEYVALUE_INTERFACE(__VA_ARGS__))
+
+// Aliases
+
+#ifdef CXX11
+
+#include <utility>
+
+/*! 
+   \brief [C++11] Define function alias
+   \param NAME function name
+   \param ALIAS function alias name
+   \returns definition of function alias
+*/
+#define FUNCTION_ALIAS(NAME, ALIAS) template <typename... Args> \
+                                    auto ALIAS(Args&&... args) -> decltype(NAME(std::forward<Args>(args)...)) \
+                                        { return NAME(std::forward<Args>(args)...); }
+
+/*! 
+   \brief [C++11] Define many function aliases
+   \param NAME function name
+   \param __VA_ARGS__ list of aliases names
+   \returns many definition of function aliases
+*/
+#define FUNCTION_ALIASES(NAME, ...) PP_LIST_M_ITEM_TERM_ARGS(FUNCTION_ALIAS, NAME, __VA_ARGS__)
+
+#endif // C++11
 
 #endif // __cplusplus
 
