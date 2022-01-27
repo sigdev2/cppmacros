@@ -267,7 +267,7 @@
    \param ALIAS function alias name
    \returns definition of function alias
 */
-#define FUNCTION_ALIAS(NAME, ALIAS) template <typename... Args> \
+#define FUNC_ALIAS(NAME, ALIAS) template <typename... Args> \
                                     constexpr auto ALIAS(Args&&... args) -> decltype(NAME(std::forward<Args>(args)...)) \
                                         { return NAME(std::forward<Args>(args)...); }
 
@@ -277,7 +277,7 @@
    \param __VA_ARGS__ list of aliases names
    \returns many definition of function aliases
 */
-#define FUNCTION_ALIASES(NAME, ...) PP_LIST_M_ITEM_TERM_ARGS(FUNCTION_ALIAS, NAME, __VA_ARGS__)
+#define FUNC_ALIASES(NAME, ...) PP_LIST_M_ITEM_TERM_ARGS(FUNCTION_ALIAS, NAME, __VA_ARGS__)
 
 #endif // C++14
 
