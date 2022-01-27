@@ -268,8 +268,8 @@
    \returns definition of function alias
 */
 #define FUNC_ALIAS(NAME, ALIAS) template <typename... Args> \
-                                    constexpr auto ALIAS(Args&&... args) -> decltype(NAME(std::forward<Args>(args)...)) \
-                                        { return NAME(std::forward<Args>(args)...); }
+                                constexpr auto ALIAS(Args&&... args) -> decltype(NAME(std::forward<Args>(args)...)) \
+                                    { return NAME(std::forward<Args>(args)...); }
 
 /*! 
    \brief [C++14] Define many function aliases
