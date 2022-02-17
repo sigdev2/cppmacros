@@ -18,7 +18,7 @@
      - /common/debug.h
 */
 
-#include "../macroslib/src/macroslib.h"
+#include <macroslib.h>
 #include "switch.h"
 #include "../common/debug.h"
 

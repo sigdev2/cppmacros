@@ -14,7 +14,7 @@
      - /common/lang.h
 */
 
-#include "../macroslib/src/macroslib.h"
+#include <macroslib.h>
 #include "../config.h"
 #include "../common/lang.h"
 

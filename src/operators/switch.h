@@ -10,7 +10,7 @@
     \brief Macros for write switch ... case ... default constructions
 */
 
-#include "../macroslib/src/macroslib.h"
+#include <macroslib.h>
 
 
 /*!

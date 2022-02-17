@@ -13,7 +13,7 @@
     The file contains includes of all library files and macros for managing them. If is included, then macros __HAS_CPPMACROS_LIB_H__ is defined
 */
 
-#include "macroslib/src/macroslib.h"
+#include <macroslib.h>
 #include "config.h"
 
 

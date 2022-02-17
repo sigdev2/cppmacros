@@ -14,7 +14,7 @@
      - /common/versions.h
 */
 
-#include "../macroslib/src/macroslib.h"
+#include <macroslib.h>
 #include "../common/versions.h"
 #include "../common/templates.h"
 #include "../common/interfaces.h"
