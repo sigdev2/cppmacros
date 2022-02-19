@@ -1,0 +1,3 @@
+[submodule "cmake/cmake_gitutils"]
+	path = cmake/cmake_gitutils
+	url = https://github.com/sigdev2/cmake_gitutils
